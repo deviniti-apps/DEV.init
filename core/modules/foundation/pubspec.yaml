@@ -1,0 +1,21 @@
+name: foundation
+description: A new Flutter package project.
+version: 0.0.1
+author:
+homepage: ' '
+
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=2.0.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:

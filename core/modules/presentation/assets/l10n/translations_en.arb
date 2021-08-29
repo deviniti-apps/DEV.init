@@ -1,0 +1,10 @@
+{   
+    "appTitle": "Whistlink",
+    "@appTitle": {
+      "description": "App name"
+    },
+    "splash": "Splash",
+    "@splash": {
+      "description": "Splash screen name"
+    }
+}
