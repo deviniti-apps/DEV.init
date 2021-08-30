@@ -26,8 +26,8 @@ Setup project:
 You can run the application using following command line:
 
 - add `.env` to assets directory with `API_URL` environment variable
-- `chmod +x build_runner_rebuild.sh && chmod +x flutter_get_all.sh && chmod +x flutter_test_all.sh` -- add execution rights
-- `./build_runner_rebuild.sh` -- it will rebuild modules
+- `./flutter_rebuild_all.sh` -- it will rebuild modules
+- `fvm flutter pub run environment_config:generate --apiUrl="PASTE_API_URL_HERE"`
 - `flutter run --debug --flavor development`
 or
 - `flutter run --debug --flavor staging`
@@ -37,20 +37,6 @@ or
 ### Local Continuous Integration and Deployment is performed using ?? and Fastlane
 
 ### Environment variables:
-- Google Services files content
-    - Android
-        - `DEVELOPMENT_ANDROID_GOOGLE_SERVICES_JSON`
-        - `STAGING_ANDROID_GOOGLE_SERVICES_JSON`
-        - `PRODUCTION_ANDROID_GOOGLE_SERVICES_JSON`
-    - iOS
-        - `DEVELOPMENT_IOS_GOOGLE_SERVICES_PLIST`
-        - `STAGING_IOS_GOOGLE_SERVICES_PLIST`
-        - `PRODUCTION_IOS_GOOGLE_SERVICES_PLIST`
-- iOS XC Config files content
-    - iOS
-        - `DEVELOPMENT_IOS_XC_CONFIG`
-        - `STAGING_IOS_XC_CONFIG`
-        - `PRODUCTION_XC_CONFIG`
 - Android Upload Key (keystore)
     - `KEYSTORE_KEY_ALIAS`
     - `KEYSTORE_KEY_PASSWORD`
@@ -67,19 +53,6 @@ or
     - `STAGING_SERVICE_ACCOUNT` - used for firebase project and app distribution
     - `PRODUCTION_SERVICE_ACCOUNT` - used for firebase project and app distribution
     - `GOOGLE_PLAY_SERVICE_ACCOUNT` - used for google play app distribution
-- Firebase Application ID
-    - Android
-        - `DEVELOPMENT_ANDROID_FIREBASE_APP_ID`
-        - `STAGING_ANDROID_FIREBASE_APP_ID`
-        - `PRODUCTION_ANDROID_FIREBASE_APP_ID`
-    - iOS
-        - `DEVELOPMENT_IOS_FIREBASE_APP_ID`
-        - `STAGING_IOS_FIREBASE_APP_ID`
-        - `PRODUCTION_IOS_FIREBASE_APP_ID`
-- Facebook Application
-    - `DEVELOPMENT_FACEBOOK_APP_ID`
-    - `STAGING_FACEBOOK_APP_ID`
-    - `PRODUCTION_FACEBOOK_APP_ID`
 - REST API
     - `DEVELOPMENT_REST_API_URL`
     - `STAGING_REST_API_URL`

@@ -1,6 +1,6 @@
 cd modules
 
-cd remote/ && flutter test && cd ../
-cd domain/ && flutter test && cd ../
-cd foundation/ && flutter test && cd ../
-cd presentation/ && flutter test && cd ../../
+cd remote/ && fvm flutter test && cd ../
+cd domain/ && fvm flutter test && cd ../
+cd foundation/ && fvm flutter test && cd ../
+cd presentation/ && fvm flutter test && cd ../../

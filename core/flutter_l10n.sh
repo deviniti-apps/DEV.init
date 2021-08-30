@@ -2,10 +2,6 @@ fvm flutter pub get
 
 cd modules
 
-cd remote/ && fvm flutter pub get && cd ../
-cd domain/ && fvm flutter pub get && cd ../
-cd foundation/ && fvm flutter pub get && cd ../
-
 cd presentation/ \
   && fvm flutter pub get \
   && fvm flutter gen-l10n --arb-dir=assets/l10n \
