@@ -1,16 +1,15 @@
 echo '-------------------------------------------------'
-echo 'Flutter templator 1.0'
-echo 'Created by M.Sokol and S.Onyszko'
+echo 'Flutter Creator 1.0'
+echo 'Created by Michał Sokol and Sławomir Onyszko'
 echo '-------------------------------------------------'
 echo
-echo 'TIP: For app name use camel_case'
+echo '#1 For app name use camel_case'
 echo
-read -p 'App name: ' appName
+read -p 'Provide app name: ' appName
 echo
-echo 'TIP1: For package name use referse url with camel_case e.g. com.my_domain'
-echo 'TIP2: Your target package name will include app name'
+echo '#2 For package name use reverse url with camel_case e.g. com.deviniti.app'
 echo
-read -p 'Package name ' packageName
+read -p 'Provide package name ' packageName
 
 mkdir $appName
 
@@ -26,7 +25,7 @@ if flutter create -t app --org $packageName -a kotlin -i swift $appName; then
 
     echo 'USING TEMPLATES'
 
-    sed "s/_PACKAGE_NAME_/$packageName.$appName/g" templates/template_build.gradle > templates/build1.gradle
+    sed "s/_PACKAGE_NAME_/$packageName/g" templates/template_build.gradle > templates/build1.gradle
     sed "s/_RAW_NAME_/$appName/g" templates/build1.gradle > templates/build.gradle
     rm -rf templates/build1.gradle
     mv templates/build.gradle $appName/$appName/android/app
@@ -34,19 +33,41 @@ if flutter create -t app --org $packageName -a kotlin -i swift $appName; then
     sed "s/_RAW_NAME_/$appName/g" templates/template_README.md > templates/README.md
     mv templates/README.md $appName/
 
-    # echo 'FLUTTER GET AND REBUILD'
+    sed "s/_RAW_NAME_/$appName/g" templates/template_pubspec.yaml > templates/pubspec.yaml
+    mv templates/pubspec.yaml $appName/$appName
+
+    echo "$(cat templates/template_gitignore)" > $appName/$appName/.gitignore
 
     cd $appName/$appName
 
-    chmod +x flutter_build_runner_rebuild.sh
+    rm -rf test/
+    rm -rf README.md
 
-    ./flutter_build_runner_rebuild.sh
+    chmod +x flutter_create_screen.sh
+
+    chmod +x flutter_rebuild_presentation.sh
+    chmod +x flutter_rebuild_domain.sh
+    chmod +x flutter_rebuild_remote.sh
+    chmod +x flutter_l10n.sh
+    chmod +x flutter_get_all.sh
+    chmod +x flutter_clean_all.sh
+    chmod +x flutter_test_all.sh
+    chmod +x replace.sh
+
+    chmod +x flutter_rebuild_all.sh
+    ./flutter_rebuild_all.sh
 
     cd ../../
 
     echo 'GIT INIT'
 
-    git init $appName
+    cd $appName
+
+    git init .
+    git add .
+    git commit -m "Initial project commit - project created by internal custom creator"
+
+    cd ..
 
     echo 'CLEANING UP'
     mv $appName "$appName-mobile"
