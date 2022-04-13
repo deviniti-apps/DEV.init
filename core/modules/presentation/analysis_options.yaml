@@ -1,0 +1,10 @@
+include: package:project_linter/analysis_options.yaml
+
+linter:
+  rules:
+    require_trailing_commas: false
+
+analyzer:
+  exclude:
+    - lib/l10n/translations.dart
+    - lib/l10n/translations_en.dart

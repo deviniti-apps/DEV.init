@@ -1,0 +1,1 @@
+void unawaited(Future? future) {}

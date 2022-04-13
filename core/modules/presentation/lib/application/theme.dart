@@ -1,104 +1,153 @@
+// ignore_for_file: overridden_fields
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 abstract class Palette {
   late Brightness brightness;
+  late Color darkGrayColor;
+  late Color shadowColor;
   late Color inactiveColor;
-  late Color borderColor;
+  late Color snackBarColor;
   late Color cardColor;
   late Color primaryColor;
   late Color primaryDarkColor;
+  late Color primaryLightColor;
   late Color accentColor;
+  late Color accentVariantColor;
   late Color errorColor;
   late Color iconColor;
-  late Color scaffoldBackgroundColor;
+  late Color backgroundColor;
   late Color appBarBackgroundColor;
   late Color textOnPrimaryColor;
-  late Color textBodyColor;
-  late Color textDisplayColor;
   late Color primaryTextDisplayColor;
   late Color primaryTextBodyColor;
+  late Color badgeColor1;
+  late Color badgeColor2;
+  late Color badgeColor3;
+  late Color badgeColor4;
 }
 
 class LightPalette extends Palette {
   @override
   final Brightness brightness = Brightness.light;
   @override
-  final Color inactiveColor = Colors.grey[100]!;
+  final Color shadowColor = const Color(0x1A3C640D);
   @override
-  final Color borderColor = Colors.grey[400]!;
+  final Color darkGrayColor = const Color(0xff4D4D4F);
+  @override
+  final Color inactiveColor = const Color(0xffA1A3A6);
+  @override
+  final Color snackBarColor = const Color(0xb3000000);
   @override
   final Color cardColor = const Color(0xffffffff);
   @override
-  final Color primaryColor = const Color(0xff49B374);
+  final Color primaryColor = const Color(0xff1A3C64);
   @override
-  final Color primaryDarkColor = const Color(0xff199049);
+  final Color primaryDarkColor = const Color(0xff112C4B);
   @override
-  final Color accentColor = const Color(0xff49B374);
+  final Color primaryLightColor = const Color(0xff486383);
   @override
-  final Color errorColor = const Color(0xffECA090);
+  final Color accentColor = const Color(0xff1FA0B0);
   @override
-  final Color iconColor = const Color(0xff173047).withOpacity(0.6);
+  final Color accentVariantColor = const Color(0xff84B340);
   @override
-  final Color scaffoldBackgroundColor = const Color(0xffffffff);
+  final Color errorColor = const Color(0xffEB4B48);
   @override
-  final Color textOnPrimaryColor = Colors.white70;
+  final Color iconColor = const Color(0xff163567);
   @override
-  final Color textBodyColor = const Color(0xff173047);
+  final Color backgroundColor = const Color(0xffF8F9F9);
   @override
-  final Color textDisplayColor = Colors.grey[400]!;
+  final Color textOnPrimaryColor = Colors.white;
   @override
   final Color primaryTextBodyColor = const Color(0xff173047);
   @override
   final Color primaryTextDisplayColor = const Color(0xff173047);
   @override
-  final Color appBarBackgroundColor = Colors.grey.shade50;
+  final Color appBarBackgroundColor = const Color(0xffF8F9F9);
+  @override
+  final Color badgeColor1 = const Color(0xff1FA0B0);
+  @override
+  final Color badgeColor2 = const Color(0xff0022AA);
+  @override
+  final Color badgeColor3 = const Color(0xff84B340);
+  @override
+  final Color badgeColor4 = const Color(0xff5D1B97);
 }
 
 // todo: correct it
 class DarkPalette extends Palette {
   @override
-  final Brightness brightness = Brightness.dark;
+  final Brightness brightness = Brightness.light;
   @override
-  final Color inactiveColor = const Color(0xff191B26);
+  final Color darkGrayColor = const Color(0xff4D4D4F);
   @override
-  final Color borderColor = const Color(0xff191B26);
+  final Color shadowColor = const Color(0x1A3C640D);
   @override
-  final Color cardColor = const Color(0xff282938);
+  final Color inactiveColor = const Color(0xffA1A3A6);
   @override
-  final Color primaryColor = const Color(0xff49B374);
+  final Color snackBarColor = const Color(0xb3ffffff);
   @override
-  final Color primaryDarkColor = const Color(0xff199049);
+  final Color cardColor = const Color(0xffffffff);
   @override
-  final Color accentColor = const Color(0xff49B374);
+  final Color primaryColor = const Color(0xff1A3C64);
   @override
-  final Color errorColor = const Color(0xffECA090);
+  final Color primaryDarkColor = const Color(0xff112C4B);
   @override
-  final Color iconColor = const Color(0xff87a67d);
+  final Color primaryLightColor = const Color(0xff486383);
   @override
-  final Color scaffoldBackgroundColor = const Color(0xff191B26);
+  final Color accentColor = const Color(0xff1FA0B0);
   @override
-  final Color textOnPrimaryColor = Colors.white70;
+  final Color accentVariantColor = const Color(0xff84B340);
   @override
-  final Color textBodyColor = Colors.white70;
+  final Color errorColor = const Color(0xffEB4B48);
   @override
-  final Color textDisplayColor = Colors.white70;
+  final Color iconColor = const Color(0xff163567);
   @override
-  final Color primaryTextBodyColor = Colors.white70;
+  final Color backgroundColor = const Color(0xffF8F9F9);
   @override
-  final Color primaryTextDisplayColor = Colors.white70;
+  final Color textOnPrimaryColor = Colors.white;
   @override
-  final Color appBarBackgroundColor = Colors.grey.shade900;
+  final Color primaryTextBodyColor = const Color(0xff1A3C64);
+  @override
+  final Color primaryTextDisplayColor = const Color(0xff1A3C64);
+  @override
+  final Color appBarBackgroundColor = const Color(0xffF8F9F9);
+  @override
+  final Color badgeColor1 = const Color(0xff1FA0B0);
+  @override
+  final Color badgeColor2 = const Color(0xff0022AA);
+  @override
+  final Color badgeColor3 = const Color(0xff84B340);
+  @override
+  final Color badgeColor4 = const Color(0xff5D1B97);
 }
 
 class AppTheme {
+  static Palette paletteOf(BuildContext context) {
+    if (context.theme.brightness == Brightness.light) {
+      return LightPalette();
+    } else if (context.theme.brightness == Brightness.dark) {
+      return DarkPalette();
+    } else {
+      return LightPalette();
+    }
+  }
+
   ThemeData theme(Palette palette) {
     final theme = ThemeData(
-      brightness: palette.brightness,
-      primarySwatch: generateMaterialColor(palette.primaryColor),
-      accentColor: palette.accentColor,
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: generateMaterialColor(palette.primaryColor),
+        primaryColorDark: palette.primaryDarkColor,
+        accentColor: palette.accentColor,
+        cardColor: palette.cardColor,
+        backgroundColor: palette.backgroundColor,
+        brightness: palette.brightness,
+      ).copyWith(
+        secondaryContainer: palette.accentVariantColor,
+      ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       primaryTextTheme: _textThemeHandset.apply(
         bodyColor: palette.primaryTextBodyColor,
@@ -108,161 +157,152 @@ class AppTheme {
         bodyColor: palette.primaryTextBodyColor,
         displayColor: palette.primaryTextDisplayColor,
       ),
-      canvasColor: palette.scaffoldBackgroundColor,
-      backgroundColor: palette.scaffoldBackgroundColor,
-      scaffoldBackgroundColor: palette.scaffoldBackgroundColor,
-    );
-    return theme.copyWith(
+      iconTheme: IconThemeData(color: palette.iconColor),
+      canvasColor: palette.backgroundColor,
+      backgroundColor: palette.backgroundColor,
+      scaffoldBackgroundColor: palette.backgroundColor,
       appBarTheme: AppBarTheme(
-        centerTitle: true,
-        brightness: palette.brightness,
+        centerTitle: false,
         elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarBrightness: palette.brightness,
+          statusBarIconBrightness: palette.brightness,
+          systemNavigationBarIconBrightness: palette.brightness,
+        ),
+        toolbarTextStyle: TextStyle(color: palette.primaryColor),
+        titleTextStyle: TextStyle(color: palette.primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
         color: palette.appBarBackgroundColor,
-        iconTheme: IconThemeData(
-          color: palette.iconColor,
-        ),
-        actionsIconTheme: IconThemeData(
-          color: palette.iconColor,
-        ),
-        textTheme: _textThemeHandset,
-      ),
-      cardColor: palette.cardColor,
-      colorScheme: theme.colorScheme.copyWith(
-        error: palette.errorColor,
-        background: palette.scaffoldBackgroundColor,
-        surface: palette.scaffoldBackgroundColor,
-      ),
-      iconTheme: IconThemeData(
-        color: palette.iconColor,
+        iconTheme: IconThemeData(color: palette.iconColor),
+        actionsIconTheme: IconThemeData(color: palette.iconColor),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: theme.accentColor,
-        selectedIconTheme: const IconThemeData(),
-        unselectedIconTheme: const IconThemeData(),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: const Color(0xff93cb80),
-        selectedLabelStyle: const TextStyle(color: Colors.white),
-        unselectedLabelStyle: const TextStyle(color: Color(0xff93cb80)),
+        selectedIconTheme: IconThemeData(color: palette.accentVariantColor),
+        unselectedIconTheme: IconThemeData(color: palette.primaryColor),
+        selectedItemColor: palette.accentVariantColor,
+        unselectedItemColor: palette.primaryColor,
+        selectedLabelStyle: TextStyle(color: palette.accentVariantColor),
+        unselectedLabelStyle: TextStyle(color: palette.primaryColor),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
       ),
     );
+    return theme.copyWith(
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(primary: palette.accentVariantColor),
+      ),
+    );
   }
 
   TextTheme get _textThemeHandset => TextTheme(
-        headline1: GoogleFonts.abrilFatface(
-          fontSize: 36,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.48,
-        ),
-        headline2: GoogleFonts.abrilFatface(
-          fontSize: 28,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.48,
-        ),
-        headline3: GoogleFonts.abrilFatface(
-          fontSize: 22,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.48,
-        ),
-        headline5: GoogleFonts.inter(
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          letterSpacing: -0.408,
-        ),
-        headline6: GoogleFonts.inter(
-          fontSize: 13,
-          fontWeight: FontWeight.w400,
-          letterSpacing: -0.078,
-        ),
-        subtitle1: GoogleFonts.inter(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.32,
-        ),
-        subtitle2: GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.64,
-        ),
-        bodyText1: GoogleFonts.inter(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.32,
-        ),
-        bodyText2: GoogleFonts.inter(
-          fontSize: 14,
-          fontWeight: FontWeight.w300,
-          letterSpacing: 0.32,
-        ),
-        button: GoogleFonts.inter(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
-          letterSpacing: 0.32,
-        ),
-        caption: GoogleFonts.inter(
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          letterSpacing: 0.32,
-        ),
-        overline: GoogleFonts.inter(
-          fontSize: 12,
-          fontWeight: FontWeight.w300,
-          letterSpacing: 0.64,
-        ),
-      );
+    headline1: GoogleFonts.lato(
+      fontSize: 36,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.48,
+    ),
+    headline2: GoogleFonts.lato(
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.48,
+    ),
+    headline3: GoogleFonts.lato(
+      fontSize: 22,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.48,
+    ),
+    headline5: GoogleFonts.lato(
+      fontSize: 17,
+      fontWeight: FontWeight.w600,
+      letterSpacing: -0.408,
+    ),
+    headline6: GoogleFonts.lato(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      letterSpacing: -0.078,
+    ),
+    subtitle1: GoogleFonts.lato(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 0.19,
+    ),
+    subtitle2: GoogleFonts.lato(
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.64,
+    ),
+    bodyText1: GoogleFonts.lato(
+      fontSize: 16,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.32,
+    ),
+    bodyText2: GoogleFonts.lato(
+      fontSize: 14,
+      fontWeight: FontWeight.w300,
+      letterSpacing: 0.32,
+    ),
+    button: GoogleFonts.lato(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      letterSpacing: 0.32,
+    ),
+    caption: GoogleFonts.lato(
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.32,
+    ),
+    overline: GoogleFonts.lato(
+      fontSize: 12,
+      fontWeight: FontWeight.w300,
+      letterSpacing: 0.64,
+    ),
+  );
 
   MaterialColor generateMaterialColor(Color color) => MaterialColor(color.value, {
-        50: tintColor(color, 0.9),
-        100: tintColor(color, 0.8),
-        200: tintColor(color, 0.6),
-        300: tintColor(color, 0.4),
-        400: tintColor(color, 0.2),
-        500: color,
-        600: shadeColor(color, 0.1),
-        700: shadeColor(color, 0.2),
-        800: shadeColor(color, 0.3),
-        900: shadeColor(color, 0.4),
-      });
+    50: tintColor(color, 0.9),
+    100: tintColor(color, 0.8),
+    200: tintColor(color, 0.6),
+    300: tintColor(color, 0.4),
+    400: tintColor(color, 0.2),
+    500: color,
+    600: shadeColor(color, 0.1),
+    700: shadeColor(color, 0.2),
+    800: shadeColor(color, 0.3),
+    900: shadeColor(color, 0.4),
+  });
 
   int tintValue(int value, double factor) => max(
-        0,
-        min((value + ((255 - value) * factor)).round(), 255),
-      );
+    0,
+    min((value + ((255 - value) * factor)).round(), 255),
+  );
 
   Color tintColor(Color color, double factor) => Color.fromRGBO(
-        tintValue(color.red, factor),
-        tintValue(color.green, factor),
-        tintValue(color.blue, factor),
-        1,
-      );
+    tintValue(color.red, factor),
+    tintValue(color.green, factor),
+    tintValue(color.blue, factor),
+    1,
+  );
 
   int shadeValue(int value, double factor) => max(
-        0,
-        min(value - (value * factor).round(), 255),
-      );
+    0,
+    min(value - (value * factor).round(), 255),
+  );
 
   Color shadeColor(Color color, double factor) => Color.fromRGBO(
-        shadeValue(color.red, factor),
-        shadeValue(color.green, factor),
-        shadeValue(color.blue, factor),
-        1,
-      );
+    shadeValue(color.red, factor),
+    shadeValue(color.green, factor),
+    shadeValue(color.blue, factor),
+    1,
+  );
 }
 
-extension ThemeDatas on BuildContext {
-  ThemeData get themeData => Theme.of(this);
-}
+extension AppThemes on BuildContext {
+  ThemeData get theme => Theme.of(this);
 
-extension TextThemes on BuildContext {
-  TextTheme get textThemes => themeData.textTheme;
-}
+  AppBarTheme get appBarThemes => theme.appBarTheme;
 
-extension AppBarThemes on BuildContext {
-  AppBarTheme get appBarThemes => themeData.appBarTheme;
-}
+  TextTheme get textTheme => Theme.of(this).textTheme;
 
-extension ColorShemas on BuildContext {
-  ColorScheme get colors => themeData.colorScheme;
+  Palette get palette => AppTheme.paletteOf(this);
+
+  ColorScheme get colors => theme.colorScheme;
 }

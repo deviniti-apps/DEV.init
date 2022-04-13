@@ -1,0 +1,243 @@
+default_platform(:ios)
+
+require 'securerandom'
+
+# Default temporary keychain password and name, if not included from environment
+TEMP_KEYCHAIN_NAME_DEFAULT = "fastlane__RAW_NAME__flutter"
+TEMP_KEYCHAIN_PASSWORD_DEFAULT = SecureRandom.hex
+
+# Remove the temporary keychain, if it exists
+def delete_temp_keychain(name)
+  delete_keychain(
+    name: name
+  ) if File.exist? File.expand_path("~/Library/Keychains/#{name}-db")
+end
+
+# Create the temporary keychain with name and password
+def create_temp_keychain(name, password)
+  create_keychain(
+    name: name,
+    password: password,
+    unlock: false,
+    timeout: 0
+  )
+end
+
+# Ensure we have a fresh, empty temporary keychain
+def ensure_temp_keychain(name, password)
+  delete_temp_keychain(name)
+  create_temp_keychain(name, password)
+end
+
+platform :ios do
+  desc "Nukes certificates"
+  lane :nuke do |options|
+    app_store_connect_api_key()
+
+    match_nuke(
+      type: options[:type],
+    )
+  end
+
+  desc "Match App Store Certificates"
+  lane :certificates do |options|
+    app_store_connect_api_key()
+
+    match(
+      type: options[:type],
+      readonly: options[:readonly],
+      force: options[:force],
+      force_for_new_devices: true,
+      generate_apple_certs: false,
+      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
+    )
+  end
+
+  desc "Build & sign iOS Alpha (development) for Firebase App Distribution"
+  lane :build_fad_ios_alpha do
+    app_store_connect_api_key()
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "./Runner.xcodeproj",
+    )
+
+    ensure_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT, TEMP_KEYCHAIN_PASSWORD_DEFAULT)
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'development',
+      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
+    )
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'adhoc',
+    )
+
+    build_app(
+      scheme: "development",
+      output_name: "_RAW_NAME_Alpha.ipa",
+      configuration: "Release-development",
+      export_options: {
+        method: "app-store",
+        provisioningProfiles: {
+          "_PACKAGE_NAME_.alpha" => "match AdHoc _PACKAGE_NAME_.alpha",
+        }
+      }
+    )
+
+    delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
+  end
+
+  desc "Deploy a new Alpha (development) version to the Firebase App Distribution"
+  lane :deploy_fad_ios_alpha do
+    firebase_app_distribution(
+      app: "", # TODO: update firebase app number
+      ipa_path: "./_RAW_NAME_Alpha.ipa",
+      groups: "beta-testers",
+      release_notes: ""
+    )
+  end
+
+  desc "Build & sign iOS Beta (staging) for Firebase App Distribution"
+  lane :build_fad_ios_beta do
+    app_store_connect_api_key()
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "./Runner.xcodeproj",
+    )
+
+    ensure_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT, TEMP_KEYCHAIN_PASSWORD_DEFAULT)
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'development',
+      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
+    )
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'adhoc'
+    )
+
+    build_app(
+      scheme: "staging",
+      output_name: "_RAW_NAME_Beta.ipa",
+      configuration: "Release-staging",
+      export_method: "ad-hoc"
+    )
+
+    delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
+  end
+
+  desc "Deploy a new Beta (staging) version to the Firebase App Distribution"
+  lane :deploy_fad_ios_beta do
+    firebase_app_distribution(
+      app: "", # TODO: update firebase app number
+      ipa_path: "./_RAW_NAME_Beta.ipa",
+      groups: "beta-testers",
+      release_notes: ""
+    )
+  end
+
+  desc "Build & sign iOS (production) for Firebase App Distribution"
+  lane :build_fad_ios_production do
+    app_store_connect_api_key()
+
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "./Runner.xcodeproj",
+    )
+
+    ensure_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT, TEMP_KEYCHAIN_PASSWORD_DEFAULT)
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'development',
+      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
+    )
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'adhoc'
+    )
+
+    build_app(
+      scheme: "production",
+      output_name: "_RAW_NAME_.ipa",
+      configuration: "Release-production",
+      export_method: "ad-hoc"
+    )
+
+    delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
+  end
+
+  desc "Deploy a new Production (production) version to the Firebase App Distribution"
+  lane :deploy_fad_ios_production do
+    firebase_app_distribution(
+      ipa_path: "./_RAW_NAME_.ipa",
+      groups: "beta-testers",
+      release_notes: ""
+    )
+  end
+
+  desc "Build & sign iOS Production"
+  lane :build_ios_production do
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "./Runner.xcodeproj",
+    )
+
+    ensure_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT, TEMP_KEYCHAIN_PASSWORD_DEFAULT)
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'development',
+      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
+    )
+
+    match(
+      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
+      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
+      readonly: true,
+      type: 'appstore',
+    )
+
+    build_app(
+      scheme: "production",
+      output_name: "_RAW_NAME_.ipa",
+      configuration: "Release-production",
+      export_method: "app-store",
+    )
+
+    delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
+  end
+
+  desc "Deploy iOS Production to AppStore Connect"
+  lane :deploy_ios_production do
+    app_store_connect_api_key()
+
+    testflight(
+      ipa: "./_RAW_NAME_.ipa",
+      skip_submission: true,
+      distribute_external: false,
+      skip_waiting_for_build_processing: true,
+    )
+  end
+end

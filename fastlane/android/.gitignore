@@ -1,0 +1,22 @@
+gradle-wrapper.jar
+/.gradle
+/captures/
+/gradlew
+/gradlew.bat
+/local.properties
+GeneratedPluginRegistrant.java
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/docs/deployment/android#reference-the-keystore-from-the-app
+key.properties
+
+# Google Services (e.g. APIs or Firebase)
+*.jks
+/fastlane/README.md
+/fastlane/report.xml
+*-service-account.json
+*.p8
+export_env.sh
+Flutter/.last_build_id
+fastlane/README.md
+fastlane/report.xml

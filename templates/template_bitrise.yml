@@ -1,0 +1,240 @@
+---
+format_version: '8'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: flutter
+workflows:
+  build-test-deploy-development:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: { }
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                echo "Copy Auth Key"
+                echo "$APP_STORE_CONNECT_API_KEY_FILE" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/auth_key.p8"
+                echo "Copy Android Service Account"
+                echo "$DEVELOPMENT_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/development-service-account.json"
+                echo "Copy iOS Service Account"
+                echo "$DEVELOPMENT_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/development-service-account.json"
+          title: copy files
+      - flutter-installer@0:
+          inputs:
+            - version: 2.10.4
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                chmod +x ci_prepare_all.sh
+                ./ci_prepare_all.sh
+          title: flutter prepare all
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+
+                cd _RAW_NAME_
+
+                flutter build ios --debug --flavor development --no-codesign --build-number=$BITRISE_BUILD_NUMBER
+                flutter build apk --debug --flavor development --build-number=$BITRISE_BUILD_NUMBER
+          title: flutter build iOS & Android
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+
+                cd _RAW_NAME_/ios
+
+                export GOOGLE_APPLICATION_CREDENTIALS=development-service-account.json
+                bundle install
+                bundle exec fastlane build_fad_ios_alpha
+                bundle exec fastlane deploy_fad_ios_alpha
+          title: fastlane build deploy Alpha iOS
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+
+                cd _RAW_NAME_/android
+
+                export GOOGLE_APPLICATION_CREDENTIALS=development-service-account.json
+                bundle install
+                bundle exec fastlane deploy_development_to_firebase
+          title: fastlane deploy Alpha Android
+  build-test-deploy-staging:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: { }
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                echo "Copy Auth Key"
+                echo "$APP_STORE_CONNECT_API_KEY_FILE" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/auth_key.p8"
+                echo "Copy Android Service Account"
+                echo "$STAGING_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/staging-service-account.json"
+                echo "Copy iOS Service Account"
+                echo "$STAGING_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/staging-service-account.json"
+          title: copy files
+      - flutter-installer@0:
+          inputs:
+            - version: 2.10.4
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                chmod +x ci_prepare_all.sh
+                ./ci_prepare_all.sh
+          title: flutter prepare all
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                flutter build ios --profile --flavor staging --no-codesign --build-number=$BITRISE_BUILD_NUMBER
+                flutter build apk --profile --flavor staging --build-number=$BITRISE_BUILD_NUMBER
+          title: flutter build iOS & Android
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_/ios
+                export GOOGLE_APPLICATION_CREDENTIALS=staging-service-account.json
+                bundle install
+                bundle exec fastlane build_fad_ios_beta
+                bundle exec fastlane deploy_fad_ios_beta
+          title: fastlane build deploy Beta iOS
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_/android
+                export GOOGLE_APPLICATION_CREDENTIALS=staging-service-account.json
+                bundle install
+                bundle exec fastlane deploy_staging_to_firebase
+          title: fastlane deploy Beta Android
+  build-test-deploy-production:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: { }
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                echo "Copy Auth Key"
+                echo "$APP_STORE_CONNECT_API_KEY_FILE" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/auth_key.p8"
+                echo "Copy Google Play Service Account"
+                echo "$GOOGLE_PLAY_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/service-account.json"
+          title: copy files
+      - flutter-installer@0:
+          inputs:
+            - version: 2.5.3
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                chmod +x ci_prepare_all.sh
+                ./ci_prepare_all.sh
+          title: flutter prepare all
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                flutter build ios --release --flavor production --no-codesign --build-number=$BITRISE_BUILD_NUMBER
+                flutter build appbundle --release --flavor production --build-number=$BITRISE_BUILD_NUMBER
+          title: flutter build iOS & Android
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_/ios
+                bundle install
+                bundle exec fastlane build_ios_production
+                bundle exec fastlane deploy_ios_production
+          title: fastlane build deploy firebase Production iOS
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_/android
+                bundle install
+                bundle exec fastlane deploy_play_store
+          title: fastlane deploy Beta Android
+  test-all:
+    steps:
+      - activate-ssh-key@4:
+          run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - git-clone@6: { }
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                echo "Copy Auth Key"
+                echo "$APP_STORE_CONNECT_API_KEY_FILE" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/auth_key.p8"
+                echo "Copy Android Service Account"
+                echo "$DEVELOPMENT_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/development-service-account.json"
+                echo "Copy iOS Service Account"
+                echo "$DEVELOPMENT_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/development-service-account.json"
+          title: copy files
+      - flutter-installer@0:
+          inputs:
+            - version: 2.10.4
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                chmod +x ci_prepare_all.sh
+                ./ci_prepare_all.sh
+          title: flutter prepare all
+      - script@1:
+          inputs:
+            - content: |-
+                #!/usr/bin/env bash
+                set -ex
+                cd _RAW_NAME_
+                chmod +x ci_test_all.sh
+          title: flutter test all
+trigger_map:
+  - push_branch: master
+    workflow: build-test-deploy-production
+  - push_branch: release/*
+    workflow: build-test-deploy-staging
+  - push_branch: uat/*
+    workflow: build-test-deploy-uat
+  - pull_request_source_branch: feature/*
+    pull_request_target_branch: develop
+    workflow: test-all
+  - tag: alpha-*.*.*
+    workflow: build-test-deploy-development
+meta:
+  bitrise.io:
+    stack: osx-xcode-13.0.x

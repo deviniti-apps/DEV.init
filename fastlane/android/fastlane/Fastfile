@@ -1,0 +1,51 @@
+default_platform(:android)
+
+platform :android do
+  desc "Deploy a new development version to the Firebase App Distribution"
+  lane :deploy_development_to_firebase do
+    firebase_app_distribution(
+        app: "", # TODO: update firebase app number
+        apk_path: "../build/app/outputs/apk/development/debug/app-development-debug.apk",
+        groups: "beta-testers",
+        release_notes: ""
+    )
+  end
+
+  desc "Deploy a new staging version to the Firebase App Distribution"
+  lane :deploy_staging_to_firebase do
+    firebase_app_distribution(
+        app: "", # TODO: update firebase app number
+        apk_path: "../build/app/outputs/flutter-apk/app-staging-profile.apk",
+        groups: "beta-testers",
+        release_notes: ""
+    )
+  end
+
+  desc "Deploy a new staging version to the Firebase App Distribution"
+  lane :deploy_production_to_firebase do
+    firebase_app_distribution(
+        app: "", # TODO: update firebase app number
+        apk_path: "../build/app/outputs/flutter-apk/app-production-release.apk",
+        groups: "beta-testers",
+        release_notes: ""
+    )
+  end
+
+  desc 'Push the built release App Bundle to alpha'
+  lane :deploy_play_store do
+    begin
+      upload_to_play_store(
+        track: 'internal',
+        release_status: 'draft',
+        aab: '../build/app/outputs/bundle/productionRelease/app-production-release.aab',
+        json_key: '../android/google-play-service-account.json',
+        skip_upload_screenshots: true,
+        skip_upload_images: true,
+        changes_not_sent_for_review: true
+      )
+    rescue => exception
+      raise exception unless exception.message.include?('apkUpgradeVersionConflict')
+      puts 'Current version already present on the Play Store. Omitting this upload.'
+    end
+  end
+end

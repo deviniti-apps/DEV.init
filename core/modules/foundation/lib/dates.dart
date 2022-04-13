@@ -45,6 +45,16 @@ extension DateTimeTimeExtension on DateTime {
   /// Subtracts the Duration from this DateTime returns the difference as a new DateTime object.
   DateTime operator -(Duration duration) => subtract(duration);
 
+  String toJsonDate() {
+    final year = this.year.toString();
+    final month = this.month < 10 ? '0${this.month}' : this.month.toString();
+    final day = this.day < 10 ? '0${this.day}' : this.day.toString();
+
+    return '$year-$month-$day';
+  }
+
+  DateTime get trimFractionTimeUtc => DateTime.utc(year, month, day, hour, minute, second);
+
   /// Returns only year, month and day
   DateTime get date => DateTime(year, month, day);
 
@@ -64,6 +74,11 @@ extension DateTimeTimeExtension on DateTime {
   /// Returns if yesterday, true
   bool get wasYesterday {
     return _calculateDifference(this) == -1;
+  }
+
+  /// Returns if in 2 days, true
+  bool get in2Days {
+    return _calculateDifference(this) == 2;
   }
 
   static int _calculateDifference(DateTime date) {

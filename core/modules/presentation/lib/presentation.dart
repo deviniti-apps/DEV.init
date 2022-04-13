@@ -1,27 +1,54 @@
 library presentation;
 
-import 'package:presentation/application/app_const.dart';
-import 'package:presentation/application/application.dart';
-import 'package:presentation/application/dot_env_variables.dart';
-import 'package:presentation/application/theme.dart';
-import 'package:presentation/router/app_route_factory.dart';
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:stacked_themes/stacked_themes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foundation/foundation.dart';
+import 'package:presentation/application/application.dart';
+import 'package:presentation/application/theme.dart';
+import 'package:presentation/common/app_bloc_observer.dart';
 import 'package:presentation/injector_container.dart' as di;
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dot_env;
+import 'package:presentation/router/app_route_factory.dart';
 
 Future<void> runApplication() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dot_env.load(fileName: AppConst.assetName);
+  await di.init();
 
-  await di.init(dot_env.env[DotEnvVariables.url]!);
-  await ThemeManager.initialise();
+  AppLogger.instance().configure(
+    level: kDebugMode ? AppLogger.levelAll : AppLogger.levelSevere,
+  );
 
-  runApp(
-    Application(
-      appTheme: AppTheme(),
-      appRouteFactory: AppRouteFactory(),
-    ),
+  if (kDebugMode) {
+    AppLogger.instance().enableConsoleOutput();
+  }
+
+  AppLogger.instance().output(
+    (entry) {
+      if (entry.error != null) {
+        // for example log to firebase
+      }
+    },
+  );
+
+  runZonedGuarded(
+    () {
+      BlocOverrides.runZoned(
+        () {
+          runApp(
+            Application(
+              appTheme: AppTheme(),
+              appRouteFactory: AppRouteFactory(),
+            ),
+          );
+        },
+        blocObserver: AppBlocObserver(),
+      );
+    },
+    (error, stackTrace) {
+      logSevere('runZonedGuarded', error, stackTrace);
+    },
   );
 }

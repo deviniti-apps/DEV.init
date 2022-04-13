@@ -399,11 +399,16 @@ lib/generated_plugin_registrant.dart
 **/*.freezed.dart
 **/*.gr.dart
 
+**/coverage/
+**/real_coverage_test.dart
+
 .env
 lib/environment_config.dart
-/lib/l10n/messages_**.dart
+/lib/l10n/translations**.dart
 /envconf.sh
 
 .fvm/flutter_sdk
 /.bitrise.secrets.yml
 /android/gradle.deps
+
+*.info

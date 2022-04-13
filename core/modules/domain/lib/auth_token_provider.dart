@@ -5,10 +5,13 @@ abstract class AuthTokenProvider {
 }
 
 class AuthTokenProviderImpl extends AuthTokenProvider {
-  AuthTokenProviderImpl({required UserStore userStore}) : _userStore = userStore;
+  AuthTokenProviderImpl({
+    required UserStore userStore,
+  }) : _userStore = userStore;
 
+  // ignore: unused_field
   final UserStore _userStore;
 
   @override
-  Future<String> get token => _userStore.getToken();
+  Future<String> get token async => '';
 }

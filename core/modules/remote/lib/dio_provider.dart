@@ -1,6 +1,6 @@
+// ignore_for_file: avoid_classes_with_only_static_members
+
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:domain/auth_token_provider.dart';
 
 class DioProvider {
@@ -9,7 +9,6 @@ class DioProvider {
 
   static Dio create({
     required String baseUrl,
-    required PrettyDioLogger logger,
     required AuthTokenProvider authTokenProvider,
     required bool addAuthorizationInterceptor,
   }) {
@@ -19,10 +18,6 @@ class DioProvider {
 
     if (addAuthorizationInterceptor) {
       dio.interceptors.add(_authorizationInterceptor(authTokenProvider));
-    }
-
-    if (!kReleaseMode) {
-      dio.interceptors.add(logger);
     }
 
     return dio;

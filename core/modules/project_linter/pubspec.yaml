@@ -1,0 +1,10 @@
+name: project_linter
+version: 1.0.0
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+  flutter: "2.10.4"
+
+dependencies:
+  lint: 1.8.2
+  platform: 3.1.0
