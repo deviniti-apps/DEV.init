@@ -35,6 +35,7 @@ You can run the application using following command line:
 ### Using fastlane for iOS
 
 In order to regenerate certificates and profiles move to ios directory and export variables. Values of those variables get from pass bolt.
+Be sure that at Fastfiles you have updated firebase app number.
 
 ```bash
 export CERTIFICATES_GIT_URL=VALUE
@@ -63,13 +64,13 @@ For more information read https://docs.fastlane.tools/actions/match/#parameters
 
 ### Environment variables:
 
-- [Android KeyStore](https://developer.android.com/studio/publish/app-signing#generate-key) : this is key for
+- [Android KeyStore (guide)](https://developer.android.com/studio/publish/app-signing#generate-key) : this is key for
   application signing
     - `KEYSTORE_KEY_ALIAS` - alias of the key
     - `KEYSTORE_KEY_PASSWORD` - password for the key
     - `KEYSTORE_STORE_PASSWORD` - password for keystore where keys are stored
     - `UPLOAD_KEYSTORE` - content in base64 of keystore
-- [Fastlane Match](https://docs.fastlane.tools/actions/match/) : tool used for creating certificates and provisioning
+- [Fastlane Match (guide)](https://docs.fastlane.tools/actions/match/) : tool used for creating certificates and provisioning
   profiles for signing iOS application
     - `MATCH_PASSWORD` - password for decrypting content in certificates repository
     - `APPLE_STORE_CONNECT_KEY_ID` - id of the key for Apple App Store Connect API
@@ -80,8 +81,8 @@ For more information read https://docs.fastlane.tools/actions/match/#parameters
     - `CERTIFICATES_GIT_URL` - git url to certificates repository
     - `SPACESHIP_CONNECT_API_IN_HOUSE` - is App Store or Enterprise (in house) team? App Store Connect API cannot
       determine this on its own (yet)
-- [Google Service Accounts](https://cloud.google.com/iam/docs/service-accounts) : used for accessing firebase api
-  project and app distribution
+- [Google Service Accounts (guide)](https://cloud.google.com/iam/docs/service-accounts) : used for accessing firebase api
+  project and app distribution. For each environment create separate firebase project and then generate service account.
     - `DEVELOPMENT_SERVICE_ACCOUNT`
     - `STAGING_SERVICE_ACCOUNT`
     - `PRODUCTION_SERVICE_ACCOUNT`
