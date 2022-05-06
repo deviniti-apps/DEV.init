@@ -5,6 +5,7 @@ import 'package:presentation/application/dimen.dart';
 import 'package:presentation/components/pagination/pagination.dart';
 
 typedef IndexedPageWidgetBuilder<T extends Pageable> = Widget Function(BuildContext context, int index, T element);
+typedef ErrorWidgetBuilder = Widget Function(BuildContext context, Object error);
 
 enum _Type { listView, sliverList }
 
@@ -17,7 +18,7 @@ class Pagination<T extends Pageable> extends StatefulWidget {
   const Pagination.listView({
     required this.loading,
     required this.empty,
-    required this.error,
+    required this.errorWidgetBuilder,
     required this.indexedPageWidgetBuilder,
     this.indexedWidgetSeparatorBuilder,
     this.left = 0,
@@ -32,7 +33,7 @@ class Pagination<T extends Pageable> extends StatefulWidget {
     required this.sliverAppBar,
     required this.loading,
     required this.empty,
-    required this.error,
+    required this.errorWidgetBuilder,
     required this.indexedPageWidgetBuilder,
     this.left = 0,
     this.top = 0,
@@ -44,7 +45,7 @@ class Pagination<T extends Pageable> extends StatefulWidget {
 
   final Widget loading;
   final Widget empty;
-  final Widget error;
+  final ErrorWidgetBuilder errorWidgetBuilder;
 
   final SliverAppBar? sliverAppBar;
   final IndexedPageWidgetBuilder<T> indexedPageWidgetBuilder;
@@ -94,7 +95,7 @@ class _PaginationState<T extends Pageable> extends State<Pagination<T>> {
           return widget.loading;
         }
         if (state.hasError) {
-          return widget.error;
+          return widget.errorWidgetBuilder(context, state.error!);
         }
         if (state.items.isEmpty) {
           return widget.empty;
@@ -131,6 +132,8 @@ class _PaginationState<T extends Pageable> extends State<Pagination<T>> {
 }
 
 class _BottomLoader extends StatelessWidget {
+  const _BottomLoader({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,7 +163,7 @@ class _PaginationScrollView<T extends Pageable> extends StatelessWidget {
     required this.scrollController,
     required this.indexedPageWidgetBuilder,
     this.left = Insets.large,
-    this.top = Insets.xSmall,
+    this.top = Insets.small,
     this.right = Insets.large,
     Key? key,
   }) : super(key: key);
@@ -189,7 +192,7 @@ class _PaginationScrollView<T extends Pageable> extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 if (index >= state.items.length && state.isLoadingMore) {
-                  return _BottomLoader();
+                  return const _BottomLoader();
                 } else {
                   return indexedPageWidgetBuilder(context, index, state.items[index]);
                 }
@@ -213,7 +216,7 @@ class _PaginationListView<T extends Pageable> extends StatelessWidget {
     required this.scrollController,
     this.separatorBuilder,
     this.left = Insets.large,
-    this.top = Insets.xSmall,
+    this.top = Insets.small,
     this.right = Insets.large,
     Key? key,
   }) : super(key: key);
@@ -236,7 +239,7 @@ class _PaginationListView<T extends Pageable> extends StatelessWidget {
         itemCount: state.isLoadingMore ? state.items.length + 1 : state.items.length,
         itemBuilder: (context, index) {
           if (index >= state.items.length && state.isLoadingMore) {
-            return _BottomLoader();
+            return const _BottomLoader();
           } else {
             return indexedPageWidgetBuilder(context, index, state.items[index]);
           }
@@ -250,7 +253,7 @@ class _PaginationListView<T extends Pageable> extends StatelessWidget {
         itemCount: state.isLoadingMore ? state.items.length + 1 : state.items.length,
         itemBuilder: (context, index) {
           if (index >= state.items.length && state.isLoadingMore) {
-            return _BottomLoader();
+            return const _BottomLoader();
           } else {
             return indexedPageWidgetBuilder(context, index, state.items[index]);
           }

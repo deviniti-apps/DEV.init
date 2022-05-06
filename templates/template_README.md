@@ -1,6 +1,6 @@
 # _RAW_NAME_
 
-You can visit project [site](https://_RAW_NAME_.com/)
+You can visit project [site](https://example.com/)
 
 ## Languages, libraries and tools used
 

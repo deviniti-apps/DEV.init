@@ -927,7 +927,7 @@ class _$PaginationStateTearOff {
   const _$PaginationStateTearOff();
 
   PaginationLoadedState<T> call<T extends Pageable>(
-      {required bool hasError,
+      {required Object? error,
       required bool isLoading,
       required bool isLoadingMore,
       required bool hasReachedMax,
@@ -937,7 +937,7 @@ class _$PaginationStateTearOff {
       required Object? config,
       required List<T> items}) {
     return PaginationLoadedState<T>(
-      hasError: hasError,
+      error: error,
       isLoading: isLoading,
       isLoadingMore: isLoadingMore,
       hasReachedMax: hasReachedMax,
@@ -955,7 +955,7 @@ const $PaginationState = _$PaginationStateTearOff();
 
 /// @nodoc
 mixin _$PaginationState<T extends Pageable> {
-  bool get hasError => throw _privateConstructorUsedError;
+  Object? get error => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoadingMore => throw _privateConstructorUsedError;
   bool get hasReachedMax => throw _privateConstructorUsedError;
@@ -976,7 +976,7 @@ abstract class $PaginationStateCopyWith<T extends Pageable, $Res> {
           PaginationState<T> value, $Res Function(PaginationState<T>) then) =
       _$PaginationStateCopyWithImpl<T, $Res>;
   $Res call(
-      {bool hasError,
+      {Object? error,
       bool isLoading,
       bool isLoadingMore,
       bool hasReachedMax,
@@ -998,7 +998,7 @@ class _$PaginationStateCopyWithImpl<T extends Pageable, $Res>
 
   @override
   $Res call({
-    Object? hasError = freezed,
+    Object? error = freezed,
     Object? isLoading = freezed,
     Object? isLoadingMore = freezed,
     Object? hasReachedMax = freezed,
@@ -1009,10 +1009,7 @@ class _$PaginationStateCopyWithImpl<T extends Pageable, $Res>
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
-      hasError: hasError == freezed
-          ? _value.hasError
-          : hasError // ignore: cast_nullable_to_non_nullable
-              as bool,
+      error: error == freezed ? _value.error : error,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -1052,7 +1049,7 @@ abstract class $PaginationLoadedStateCopyWith<T extends Pageable, $Res>
       _$PaginationLoadedStateCopyWithImpl<T, $Res>;
   @override
   $Res call(
-      {bool hasError,
+      {Object? error,
       bool isLoading,
       bool isLoadingMore,
       bool hasReachedMax,
@@ -1077,7 +1074,7 @@ class _$PaginationLoadedStateCopyWithImpl<T extends Pageable, $Res>
 
   @override
   $Res call({
-    Object? hasError = freezed,
+    Object? error = freezed,
     Object? isLoading = freezed,
     Object? isLoadingMore = freezed,
     Object? hasReachedMax = freezed,
@@ -1088,10 +1085,7 @@ class _$PaginationLoadedStateCopyWithImpl<T extends Pageable, $Res>
     Object? items = freezed,
   }) {
     return _then(PaginationLoadedState<T>(
-      hasError: hasError == freezed
-          ? _value.hasError
-          : hasError // ignore: cast_nullable_to_non_nullable
-              as bool,
+      error: error == freezed ? _value.error : error,
       isLoading: isLoading == freezed
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -1128,7 +1122,7 @@ class _$PaginationLoadedStateCopyWithImpl<T extends Pageable, $Res>
 class _$PaginationLoadedState<T extends Pageable>
     implements PaginationLoadedState<T> {
   const _$PaginationLoadedState(
-      {required this.hasError,
+      {required this.error,
       required this.isLoading,
       required this.isLoadingMore,
       required this.hasReachedMax,
@@ -1139,7 +1133,7 @@ class _$PaginationLoadedState<T extends Pageable>
       required this.items});
 
   @override
-  final bool hasError;
+  final Object? error;
   @override
   final bool isLoading;
   @override
@@ -1159,7 +1153,7 @@ class _$PaginationLoadedState<T extends Pageable>
 
   @override
   String toString() {
-    return 'PaginationState<$T>(hasError: $hasError, isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasReachedMax: $hasReachedMax, paginationKey: $paginationKey, pageSize: $pageSize, filteringKey: $filteringKey, config: $config, items: $items)';
+    return 'PaginationState<$T>(error: $error, isLoading: $isLoading, isLoadingMore: $isLoadingMore, hasReachedMax: $hasReachedMax, paginationKey: $paginationKey, pageSize: $pageSize, filteringKey: $filteringKey, config: $config, items: $items)';
   }
 
   @override
@@ -1167,8 +1161,7 @@ class _$PaginationLoadedState<T extends Pageable>
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is PaginationLoadedState<T> &&
-            (identical(other.hasError, hasError) ||
-                other.hasError == hasError) &&
+            const DeepCollectionEquality().equals(other.error, error) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isLoadingMore, isLoadingMore) ||
@@ -1188,7 +1181,7 @@ class _$PaginationLoadedState<T extends Pageable>
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      hasError,
+      const DeepCollectionEquality().hash(error),
       isLoading,
       isLoadingMore,
       hasReachedMax,
@@ -1208,7 +1201,7 @@ class _$PaginationLoadedState<T extends Pageable>
 abstract class PaginationLoadedState<T extends Pageable>
     implements PaginationState<T> {
   const factory PaginationLoadedState(
-      {required bool hasError,
+      {required Object? error,
       required bool isLoading,
       required bool isLoadingMore,
       required bool hasReachedMax,
@@ -1219,7 +1212,7 @@ abstract class PaginationLoadedState<T extends Pageable>
       required List<T> items}) = _$PaginationLoadedState<T>;
 
   @override
-  bool get hasError;
+  Object? get error;
   @override
   bool get isLoading;
   @override

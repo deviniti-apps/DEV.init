@@ -305,7 +305,7 @@ void main() {
     'emits state with first page and hasReachedMax true',
     build: buildBloc,
     seed: () => PaginationLoadedState<PaginationItem>(
-      hasError: false,
+      error: null,
       isLoading: false,
       isLoadingMore: false,
       hasReachedMax: false,

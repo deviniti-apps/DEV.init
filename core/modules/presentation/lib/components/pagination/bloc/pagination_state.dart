@@ -3,7 +3,7 @@ part of 'pagination_bloc.dart';
 @freezed
 class PaginationState<T extends Pageable> with _$PaginationState<T> {
   const factory PaginationState({
-    required bool hasError,
+    required Object? error,
     required bool isLoading,
     required bool isLoadingMore,
     required bool hasReachedMax,
@@ -16,7 +16,7 @@ class PaginationState<T extends Pageable> with _$PaginationState<T> {
 
   factory PaginationState.initial() {
     return PaginationState<T>(
-      hasError: false,
+      error: null,
       isLoading: false,
       isLoadingMore: false,
       hasReachedMax: false,
@@ -27,4 +27,8 @@ class PaginationState<T extends Pageable> with _$PaginationState<T> {
       items: [],
     );
   }
+}
+
+extension $_PaginationState on PaginationState {
+  bool get hasError => error != null;
 }

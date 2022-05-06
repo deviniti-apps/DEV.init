@@ -5,9 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presentation/components/pagination/pagination.dart';
 
 part 'pagination_bloc.freezed.dart';
-
 part 'pagination_event.dart';
-
 part 'pagination_state.dart';
 
 class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, PaginationState<T>> {
@@ -66,7 +64,7 @@ class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, Paginatio
         isLoading: true,
         isLoadingMore: false,
         hasReachedMax: false,
-        hasError: false,
+        error: null,
         items: [],
         paginationKey: 0,
       ),
@@ -99,7 +97,7 @@ class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, Paginatio
           isLoading: true,
           isLoadingMore: false,
           hasReachedMax: false,
-          hasError: false,
+          error: null,
           items: [],
           paginationKey: 0,
           pageSize: event.pageSize,
@@ -123,15 +121,11 @@ class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, Paginatio
           isLoading: false,
           config: event.config,
           pageSize: event.pageSize,
+          error: result.error,
         ),
       );
-    } on Exception catch (_) {
-      emit(
-        state.copyWith(
-          hasError: true,
-          isLoading: false,
-        ),
-      );
+    } on Exception catch (e) {
+      emit(state.copyWith(error: e, isLoading: false));
     }
   }
 
@@ -151,7 +145,7 @@ class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, Paginatio
             paginationKey: result.paginationKey,
             hasReachedMax: false,
             isLoadingMore: false,
-            hasError: false,
+            error: result.error,
             pageSize: event.pageSize,
           ),
         );
@@ -161,7 +155,7 @@ class PaginationBloc<T extends Pageable> extends Bloc<PaginationEvent, Paginatio
             hasReachedMax: true,
             isLoadingMore: false,
             isLoading: false,
-            hasError: false,
+            error: result.error,
             pageSize: event.pageSize,
           ),
         );
