@@ -35,6 +35,7 @@ class DioProvider {
             },
           );
         }
+        interceptorHandler.next(options);
       },
     );
   }
