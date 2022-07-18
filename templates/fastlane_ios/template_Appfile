@@ -8,10 +8,6 @@ for_platform :ios do
         app_identifier '_PACKAGE_NAME_.beta'
     end
 
-    for_lane :build_fad_ios_beta do
-        app_identifier '_PACKAGE_NAME_.beta'
-    end
-
     for_lane :build_ios_production do
         app_identifier '_PACKAGE_NAME_'
     end
