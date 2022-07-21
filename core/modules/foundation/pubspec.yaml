@@ -1,18 +1,16 @@
 name: foundation
-description: foundation
-version: 0.0.1
-homepage: ' '
-
+description: Foundation module
 publish_to: 'none'
+version: 0.0.1
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
-  flutter: "2.10.0"
+  flutter: "3.0.5"
 
 dependencies:
   flutter:
     sdk: flutter
-  fpdart: 0.0.14
+  fpdart: 0.2.0
   logging: 1.0.2
   project_linter:
     path: ../project_linter

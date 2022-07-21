@@ -1,16 +1,17 @@
 name: presentation
 description: Presentation module
-version: 0.0.1
 publish_to: 'none'
+version: 0.0.1
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
-  flutter: "2.10.4"
+  flutter: "3.0.5"
 
 dependencies:
-  adaptive_theme: 2.3.1
+  adaptive_theme: 3.1.0
   bloc_concurrency: 0.2.0
-  cupertino_icons: 1.0.4
+  collection: 1.16.0
+  cupertino_icons: 1.0.5
   domain:
     path: ../domain
   flutter:
@@ -18,13 +19,13 @@ dependencies:
   flutter_bloc: 8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_svg: 1.0.3
+  flutter_svg: 1.1.1+1
   foundation:
     path: ../foundation
-  fpdart: 0.0.14
-  freezed_annotation: 0.15.0
+  fpdart: 0.2.0
+  freezed_annotation: 2.1.0
   get_it: 7.2.0
-  google_fonts: 2.3.1
+  google_fonts: 3.0.1
   intl: 0.17.0
   project_linter:
     path: ../project_linter
@@ -32,13 +33,13 @@ dependencies:
     path: ../remote
 
 dev_dependencies:
-  analyzer: 2.5.0
+  analyzer: 4.2.0
   bloc_test: 9.0.3
-  build_runner: 2.1.7
+  build_runner: 2.2.0
   flutter_test:
     sdk: flutter
-  freezed: 0.15.0+1
-  lints: 1.0.1
+  freezed: 2.1.0+1
+  lints: 2.0.0
   mockingjay: 0.3.0
   mocktail: 0.3.0
   platform: 3.1.0
