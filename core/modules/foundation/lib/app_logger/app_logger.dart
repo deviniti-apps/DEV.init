@@ -88,7 +88,11 @@ class AppLogger {
   void enableConsoleOutput() {
     output(
       (entry) {
-        developer_log.log('${entry.levelName}: ${entry.time}: ${entry.message}');
+        developer_log.log(
+          '${entry.levelName}: ${entry.time}: ${entry.message}',
+          error: entry.error,
+          stackTrace: entry.stackTrace,
+        );
       },
     );
   }

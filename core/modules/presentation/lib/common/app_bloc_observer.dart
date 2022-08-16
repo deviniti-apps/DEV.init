@@ -7,36 +7,40 @@ class AppBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
     super.onCreate(bloc);
-    logInfo('bloc: $bloc');
+    logInfo('${_baseType(bloc)}: Created ${bloc.runtimeType}');
   }
 
   @override
   void onClose(BlocBase bloc) {
     super.onClose(bloc);
-    logInfo('bloc: $bloc');
+    logInfo('${_baseType(bloc)}: Closed ${bloc.runtimeType}');
   }
 
   @override
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
-    logSevere('bloc: ${bloc.runtimeType}', error, stackTrace);
+    logSevere('${_baseType(bloc)}: Error in ${bloc.runtimeType}: $error');
   }
 
   @override
   void onTransition(Bloc bloc, Transition transition) {
     super.onTransition(bloc, transition);
-    logInfo('$bloc: ${bloc.runtimeType}, $transition');
+    logInfo('${_baseType(bloc)}: Transition in ${bloc.runtimeType}: $transition');
   }
 
   @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
-    logInfo('cubit: ${bloc.runtimeType}, $change');
+    logInfo('${_baseType(bloc)}: Change in ${bloc.runtimeType}: $change');
   }
 
   @override
   void onEvent(Bloc bloc, Object? event) {
     super.onEvent(bloc, event);
-    logInfo('bloc: ${bloc.runtimeType}, $event');
+    logInfo('${_baseType(bloc)}: Event in ${bloc.runtimeType}: $event');
+  }
+
+  String _baseType(BlocBase blocBase) {
+    return (blocBase is Bloc) ? 'bloc' : 'cubit';
   }
 }

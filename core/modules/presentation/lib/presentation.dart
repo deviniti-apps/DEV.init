@@ -33,22 +33,15 @@ Future<void> runApplication() async {
     },
   );
 
+  Bloc.observer = AppBlocObserver();
+
   runZonedGuarded(
-    () {
-      BlocOverrides.runZoned(
-        () {
-          runApp(
-            Application(
-              appTheme: AppTheme(),
-              appRouteFactory: AppRouteFactory(),
-            ),
-          );
-        },
-        blocObserver: AppBlocObserver(),
-      );
-    },
-    (error, stackTrace) {
-      logSevere('runZonedGuarded', error, stackTrace);
-    },
+    () => runApp(
+      Application(
+        appTheme: AppTheme(),
+        appRouteFactory: AppRouteFactory(),
+      ),
+    ),
+    (error, stackTrace) => logSevere('Exception caught in presentation layer', error, stackTrace),
   );
 }
