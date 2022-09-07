@@ -8,7 +8,7 @@ environment:
   flutter: "3.3.0"
 
 dependencies:
-  adaptive_theme: 3.1.0
+  adaptive_theme: 3.1.1
   bloc_concurrency: 0.2.0
   collection: 1.16.0
   cupertino_icons: 1.0.5
@@ -16,10 +16,10 @@ dependencies:
     path: ../domain
   flutter:
     sdk: flutter
-  flutter_bloc: 8.0.1
+  flutter_bloc: 8.1.1
   flutter_localizations:
     sdk: flutter
-  flutter_svg: 1.1.1+1
+  flutter_svg: 1.1.4
   foundation:
     path: ../foundation
   fpdart: 0.2.0
@@ -33,8 +33,8 @@ dependencies:
     path: ../remote
 
 dev_dependencies:
-  analyzer: 4.2.0
-  bloc_test: 9.0.3
+  analyzer: 4.7.0
+  bloc_test: 9.1.0
   build_runner: 2.2.0
   flutter_test:
     sdk: flutter
