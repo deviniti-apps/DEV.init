@@ -5,6 +5,7 @@ import 'package:domain/auth_token_provider.dart';
 import 'package:domain/data_source_action/get_user_remote_source_action.dart';
 import 'package:domain/model/user.dart';
 import 'package:domain/unauth_stream_provider.dart';
+import 'package:flutter_pretty_dio_logger/flutter_pretty_dio_logger.dart';
 import 'package:get_it/get_it.dart';
 import 'package:remote/api/user_rest_api.dart';
 import 'package:remote/data_source_action/get_user_remote_source_action_impl.dart';
@@ -23,11 +24,21 @@ extension RemoteInjector on GetIt {
       .._registerMappers()
       .._registerApi()
       .._registerRemoteSourceAction()
+      ..registerLazySingleton(
+        () => PrettyDioLogger(
+          canShowLog: true,
+          requestBody: true,
+          requestHeader: true,
+          responseHeader: true,
+          queryParameters: true,
+        ),
+      )
       ..registerSingleton<UnAuthStreamProvider>(UnAuthStreamProviderImpl())
       ..registerSingleton(const ErrorConverter())
       ..registerFactory<Dio>(
         () => DioProvider.create(
           baseUrl: baseUrl,
+          prettyDioLogger: get(),
           addAuthorizationInterceptor: true,
           authTokenProvider: get<AuthTokenProvider>(),
         ),
@@ -36,6 +47,7 @@ extension RemoteInjector on GetIt {
       ..registerFactory<Dio>(
         () => DioProvider.create(
           baseUrl: baseUrl,
+          prettyDioLogger: get(),
           addAuthorizationInterceptor: false,
           authTokenProvider: get<AuthTokenProvider>(),
         ),

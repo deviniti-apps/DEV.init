@@ -2,6 +2,8 @@
 
 import 'package:dio/dio.dart';
 import 'package:domain/auth_token_provider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_pretty_dio_logger/flutter_pretty_dio_logger.dart';
 
 class DioProvider {
   static String dioAuth = 'DioAuth';
@@ -10,11 +12,16 @@ class DioProvider {
   static Dio create({
     required String baseUrl,
     required AuthTokenProvider authTokenProvider,
+    required PrettyDioLogger prettyDioLogger,
     required bool addAuthorizationInterceptor,
   }) {
     final dio = Dio()
       ..options.baseUrl = baseUrl
       ..options.responseType = ResponseType.json;
+
+    if (!kReleaseMode) {
+      dio.interceptors.add(prettyDioLogger);
+    }
 
     if (addAuthorizationInterceptor) {
       dio.interceptors.add(_authorizationInterceptor(authTokenProvider));
