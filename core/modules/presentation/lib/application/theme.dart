@@ -80,7 +80,7 @@ class LightPalette extends Palette {
 // todo: correct it
 class DarkPalette extends Palette {
   @override
-  final Brightness brightness = Brightness.light;
+  final Brightness brightness = Brightness.dark;
   @override
   final Color darkGrayColor = const Color(0xff4D4D4F);
   @override
@@ -127,13 +127,7 @@ class DarkPalette extends Palette {
 
 class AppTheme {
   static Palette paletteOf(BuildContext context) {
-    if (context.theme.brightness == Brightness.light) {
-      return LightPalette();
-    } else if (context.theme.brightness == Brightness.dark) {
-      return DarkPalette();
-    } else {
-      return LightPalette();
-    }
+    return context.theme.brightness == Brightness.light ? LightPalette() : DarkPalette();
   }
 
   ThemeData theme(Palette palette) {
@@ -195,104 +189,104 @@ class AppTheme {
   }
 
   TextTheme get _textThemeHandset => TextTheme(
-    headline1: GoogleFonts.lato(
-      fontSize: 36,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.48,
-    ),
-    headline2: GoogleFonts.lato(
-      fontSize: 28,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.48,
-    ),
-    headline3: GoogleFonts.lato(
-      fontSize: 22,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.48,
-    ),
-    headline5: GoogleFonts.lato(
-      fontSize: 17,
-      fontWeight: FontWeight.w600,
-      letterSpacing: -0.408,
-    ),
-    headline6: GoogleFonts.lato(
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      letterSpacing: -0.078,
-    ),
-    subtitle1: GoogleFonts.lato(
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      letterSpacing: 0.19,
-    ),
-    subtitle2: GoogleFonts.lato(
-      fontSize: 12,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.64,
-    ),
-    bodyText1: GoogleFonts.lato(
-      fontSize: 16,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.32,
-    ),
-    bodyText2: GoogleFonts.lato(
-      fontSize: 14,
-      fontWeight: FontWeight.w300,
-      letterSpacing: 0.32,
-    ),
-    button: GoogleFonts.lato(
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-      letterSpacing: 0.32,
-    ),
-    caption: GoogleFonts.lato(
-      fontSize: 18,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.32,
-    ),
-    overline: GoogleFonts.lato(
-      fontSize: 12,
-      fontWeight: FontWeight.w300,
-      letterSpacing: 0.64,
-    ),
-  );
+        headline1: GoogleFonts.lato(
+          fontSize: 36,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.48,
+        ),
+        headline2: GoogleFonts.lato(
+          fontSize: 28,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.48,
+        ),
+        headline3: GoogleFonts.lato(
+          fontSize: 22,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.48,
+        ),
+        headline5: GoogleFonts.lato(
+          fontSize: 17,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -0.408,
+        ),
+        headline6: GoogleFonts.lato(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          letterSpacing: -0.078,
+        ),
+        subtitle1: GoogleFonts.lato(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 0.19,
+        ),
+        subtitle2: GoogleFonts.lato(
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.64,
+        ),
+        bodyText1: GoogleFonts.lato(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.32,
+        ),
+        bodyText2: GoogleFonts.lato(
+          fontSize: 14,
+          fontWeight: FontWeight.w300,
+          letterSpacing: 0.32,
+        ),
+        button: GoogleFonts.lato(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          letterSpacing: 0.32,
+        ),
+        caption: GoogleFonts.lato(
+          fontSize: 18,
+          fontWeight: FontWeight.w400,
+          letterSpacing: 0.32,
+        ),
+        overline: GoogleFonts.lato(
+          fontSize: 12,
+          fontWeight: FontWeight.w300,
+          letterSpacing: 0.64,
+        ),
+      );
 
   MaterialColor generateMaterialColor(Color color) => MaterialColor(color.value, {
-    50: tintColor(color, 0.9),
-    100: tintColor(color, 0.8),
-    200: tintColor(color, 0.6),
-    300: tintColor(color, 0.4),
-    400: tintColor(color, 0.2),
-    500: color,
-    600: shadeColor(color, 0.1),
-    700: shadeColor(color, 0.2),
-    800: shadeColor(color, 0.3),
-    900: shadeColor(color, 0.4),
-  });
+        50: tintColor(color, 0.9),
+        100: tintColor(color, 0.8),
+        200: tintColor(color, 0.6),
+        300: tintColor(color, 0.4),
+        400: tintColor(color, 0.2),
+        500: color,
+        600: shadeColor(color, 0.1),
+        700: shadeColor(color, 0.2),
+        800: shadeColor(color, 0.3),
+        900: shadeColor(color, 0.4),
+      });
 
   int tintValue(int value, double factor) => max(
-    0,
-    min((value + ((255 - value) * factor)).round(), 255),
-  );
+        0,
+        min((value + ((255 - value) * factor)).round(), 255),
+      );
 
   Color tintColor(Color color, double factor) => Color.fromRGBO(
-    tintValue(color.red, factor),
-    tintValue(color.green, factor),
-    tintValue(color.blue, factor),
-    1,
-  );
+        tintValue(color.red, factor),
+        tintValue(color.green, factor),
+        tintValue(color.blue, factor),
+        1,
+      );
 
   int shadeValue(int value, double factor) => max(
-    0,
-    min(value - (value * factor).round(), 255),
-  );
+        0,
+        min(value - (value * factor).round(), 255),
+      );
 
   Color shadeColor(Color color, double factor) => Color.fromRGBO(
-    shadeValue(color.red, factor),
-    shadeValue(color.green, factor),
-    shadeValue(color.blue, factor),
-    1,
-  );
+        shadeValue(color.red, factor),
+        shadeValue(color.green, factor),
+        shadeValue(color.blue, factor),
+        1,
+      );
 }
 
 extension AppThemes on BuildContext {
