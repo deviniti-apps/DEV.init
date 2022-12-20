@@ -240,4 +240,14 @@ platform :ios do
       skip_waiting_for_build_processing: true,
     )
   end
+
+  desc "Register devices"
+  lane :register_distribution_devices do
+    app_store_connect_api_key()
+    register_devices(
+        devices: {
+        "SET_A_NAME_HERE" => "UDID_HERE"
+        },
+  )
+  end
 end
