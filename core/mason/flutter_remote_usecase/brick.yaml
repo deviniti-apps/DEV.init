@@ -1,0 +1,25 @@
+name: flutter_remote_usecase
+description: Flutter usecase, usecase request, domain model, remote source action, remote models and remote mappers generator
+
+version: 0.0.1
+
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  usecaseName:
+    type: string
+    prompt: What's the prefix for the usecase/remote actions to be created? (verb, e.g. getUser)?
+  acceptsParam:
+    type: boolean
+    prompt: Will this usecase/remote actions receive a parameter (like GetUserRequest)?
+  returnsDomainModel:
+    type: boolean
+    prompt: Will this usecase/remote actions return a domain model (yes) or void (no)?
+  domainModelName:
+    type: string
+    default: masonDefaultDomainModelName
+    prompt: Skip if you answered 'no', otherwise - what should the returned value domain model be named? (noun, e.g. User)
+  apiName:
+    type: string
+    prompt: What's the name of the underlying remote API class? (noun, e.g. User for a class named UserRestApi)

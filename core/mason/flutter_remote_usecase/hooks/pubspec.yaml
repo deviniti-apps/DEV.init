@@ -1,0 +1,7 @@
+name: flutter_remote_usecase_hooks
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+dependencies:
+  mason: any

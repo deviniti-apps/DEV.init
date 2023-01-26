@@ -1,0 +1,5 @@
+bricks:
+  flutter_screen:
+    path: ./mason/flutter_screen
+  flutter_remote_usecase:
+    path: ./mason/flutter_remote_usecase

@@ -1,0 +1,19 @@
+name: flutter_screen
+description: Generic Flutter screen with optional bloc generation by Deviniti
+
+version: 0.0.1
+
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  name:
+    type: string
+    prompt: What's the name of the screen?
+  appBar:
+    type: boolean
+    prompt: Generate app bar?
+  bloc:
+    type: boolean
+    default: true
+    prompt: Does the screen use bloc?
