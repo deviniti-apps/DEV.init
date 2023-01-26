@@ -1,0 +1,49 @@
+name: melos_runner
+
+packages:
+  - modules/**
+  - .
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  rebuild:
+    run: |
+      melos run get_dependencies --no-select && \
+      melos run generate_translations --no-select && \
+      melos run generate_code --no-select \
+    description: Rebuild selected (or all) packages
+    select-package:
+      flutter: true
+
+  generate_code:
+    run: |
+      melos exec -- \
+        "fvm flutter packages pub run build_runner build --delete-conflicting-outputs"
+    description: Generate all @freezed @immutable and @json_annotation code by running build_runner in selected (or all) packages
+    select-package:
+      scope:
+        - presentation
+        - domain
+        - remote
+
+  generate_translations:
+    run: |
+      melos exec -- \
+        "fvm flutter gen-l10n --arb-dir=assets/l10n --template-arb-file=translations_en.arb --output-localization-file=translations.dart --output-class=Translations --output-dir=lib/l10n --no-synthetic-package"
+    description: Generate Translations.dart from .arb files
+    select-package:
+      scope: presentation
+
+  get_dependencies:
+    run: |
+      melos exec -- "fvm flutter pub get"
+    description: Run pub get in all packages
+
+  clean:
+    run: |
+      melos exec -- \
+        "fvm flutter clean"
+    description: Run clean in all packages
