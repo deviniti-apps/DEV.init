@@ -1,6 +1,5 @@
 echo '-------------------------------------------------'
-echo 'Flutter Creator 2.0'
-echo 'Created by Michał Sokol and Sławomir Onyszko'
+echo 'Deviniti Flutter Project Creator'
 echo '-------------------------------------------------'
 echo
 echo '#1 For app name use single word or snake_case'
