@@ -24,10 +24,8 @@ class Pagination<T extends Pageable> extends StatefulWidget {
     this.left = 0,
     this.top = 0,
     this.right = 0,
-    Key? key,
   })  : _type = _Type.listView,
-        sliverAppBar = null,
-        super(key: key);
+        sliverAppBar = null;
 
   const Pagination.sliverList({
     required this.sliverAppBar,
@@ -38,10 +36,8 @@ class Pagination<T extends Pageable> extends StatefulWidget {
     this.left = 0,
     this.top = 0,
     this.right = 0,
-    Key? key,
   })  : _type = _Type.sliverList,
-        indexedWidgetSeparatorBuilder = null,
-        super(key: key);
+        indexedWidgetSeparatorBuilder = null;
 
   final Widget loading;
   final Widget empty;
@@ -132,7 +128,7 @@ class _PaginationState<T extends Pageable> extends State<Pagination<T>> {
 }
 
 class _BottomLoader extends StatelessWidget {
-  const _BottomLoader({Key? key}) : super(key: key);
+  const _BottomLoader();
 
   @override
   Widget build(BuildContext context) {
@@ -165,8 +161,7 @@ class _PaginationScrollView<T extends Pageable> extends StatelessWidget {
     this.left = Insets.large,
     this.top = Insets.small,
     this.right = Insets.large,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final SliverAppBar? sliverAppBar;
   final IndexedPageWidgetBuilder<T> indexedPageWidgetBuilder;
@@ -218,8 +213,7 @@ class _PaginationListView<T extends Pageable> extends StatelessWidget {
     this.left = Insets.large,
     this.top = Insets.small,
     this.right = Insets.large,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final PaginationLoadedState<T> state;
   final IndexedPageWidgetBuilder<T> indexedPageWidgetBuilder;

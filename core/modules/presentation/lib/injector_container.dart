@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'package:presentation/components/auth/bloc/auth_bloc.dart';
 import 'package:presentation/components/pagination/pagination.dart';
 import 'package:presentation/screens/dashboard/bloc/dashboard_bloc.dart';
-import 'package:presentation/screens/dashboard/dashboard_argument.dart';
 import 'package:remote/remote_injector.dart';
 
 final injector = GetIt.instance;
@@ -21,9 +20,8 @@ Future<void> init() async {
         unAuthStreamProvider: injector.get(),
       ),
     )
-    ..registerFactoryParam<DashboardBloc, DashboardArgument, void>(
-      (argument, _) => DashboardBloc(
-        argument: argument,
+    ..registerFactory<DashboardBloc>(
+      () => DashboardBloc(
         getUserUsecase: injector.get(),
       ),
     );

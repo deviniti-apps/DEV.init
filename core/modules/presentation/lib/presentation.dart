@@ -15,7 +15,7 @@ import 'package:presentation/router/app_route_factory.dart';
 Future<void> runApplication() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await di.init();
+  Bloc.observer = AppBlocObserver();
 
   AppLogger.instance().configure(
     level: kDebugMode ? AppLogger.levelAll : AppLogger.levelSevere,
@@ -25,6 +25,12 @@ Future<void> runApplication() async {
     AppLogger.instance().enableConsoleOutput();
   }
 
+  FlutterError.onError = (details) => logSevere(
+        'FlutterError caught in app',
+        details.exception,
+        details.stack,
+      );
+
   AppLogger.instance().output(
     (entry) {
       if (entry.error != null) {
@@ -33,7 +39,7 @@ Future<void> runApplication() async {
     },
   );
 
-  Bloc.observer = AppBlocObserver();
+  await di.init();
 
   runZonedGuarded(
     () => runApp(

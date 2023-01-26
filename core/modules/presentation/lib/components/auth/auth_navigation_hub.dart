@@ -8,8 +8,7 @@ class AuthNavigationHub extends StatelessWidget {
   const AuthNavigationHub({
     required this.navigatorKey,
     required this.child,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final GlobalKey<NavigatorState> navigatorKey;
   final Widget? child;
@@ -17,23 +16,11 @@ class AuthNavigationHub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (!state.isAuthenticated) {
-          navigatorKey.currentState?.pushNamedAndRemoveUntil(
-            SplashScreen.routeName,
-            (_) => false,
-          );
-          return;
-        }
-
-        if (state.isAuthenticated) {
-          navigatorKey.currentState?.pushNamedAndRemoveUntil(
-            DashboardScreen.routeName,
-            (_) => false,
-          );
-          return;
-        }
-      },
+      listenWhen: (oldState, newState) => oldState.isAuthenticated != newState.isAuthenticated,
+      listener: (context, state) => navigatorKey.currentState?.pushNamedAndRemoveUntil(
+        state.isAuthenticated ? DashboardScreen.routeName : SplashScreen.routeName,
+        (_) => false,
+      ),
       child: child,
     );
   }

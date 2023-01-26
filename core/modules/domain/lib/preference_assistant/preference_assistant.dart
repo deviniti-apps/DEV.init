@@ -28,5 +28,9 @@ class PreferenceAssistant {
     return null;
   }
 
+  Future<bool> remove({required String key}) async {
+    return _sharedPreferences.remove(key);
+  }
+
   Future<bool> deleteAll() async => _sharedPreferences.clear();
 }

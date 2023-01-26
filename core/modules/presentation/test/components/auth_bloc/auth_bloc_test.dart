@@ -28,7 +28,7 @@ void main() {
     },
   );
 
-  AuthBloc _build() {
+  AuthBloc build() {
     return AuthBloc(
       unAuthStreamProvider: mockUnAuthStreamProvider,
     );
@@ -37,7 +37,7 @@ void main() {
   blocTest<AuthBloc, AuthState>(
     'On AuthEvent.started() it subscribes to au auth stream '
     'then emits not authenticated',
-    build: _build,
+    build: build,
     setUp: () {
       when(() => mockUnAuthStreamProvider.stream).thenAnswer((_) => mockUnAuthStream);
       when(() => mockUnAuthStream.listen(any())).thenAnswer((_) => mockUnAuthSubscription);
@@ -61,7 +61,7 @@ void main() {
 
   blocTest<AuthBloc, AuthState>(
     'On AuthEvent.authenticated() it changes state to be authenticated and activated ',
-    build: _build,
+    build: build,
     act: (bloc) {
       bloc.add(const AuthEvent.authenticated());
     },

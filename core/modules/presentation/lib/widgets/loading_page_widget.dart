@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoadingPage extends StatelessWidget {
-  const LoadingPage({
-    Key? key,
-  }) : super(key: key);
+  const LoadingPage();
 
   @override
   Widget build(BuildContext context) {

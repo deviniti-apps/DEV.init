@@ -7,9 +7,7 @@ import 'package:presentation/screens/dashboard/dashboard_screen.dart';
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/';
 
-  const SplashScreen({
-    Key? key,
-  }) : super(key: key);
+  const SplashScreen();
 
   @override
   Widget build(BuildContext context) {

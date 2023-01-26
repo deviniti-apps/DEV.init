@@ -10,8 +10,6 @@ import 'package:presentation/widgets/loading_page_widget.dart';
 class DashboardScreen extends StatelessWidget {
   static const String routeName = '/dashboard';
 
-  // context.strings.dashboardScreenTitle,
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,27 +19,23 @@ class DashboardScreen extends StatelessWidget {
       body: SafeArea(
         top: false,
         child: BlocBuilder<DashboardBloc, DashboardState>(
-          builder: (context, state) {
-            return state.type.map(
-              loading: () => const LoadingPage(),
-              loaded: () {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Insets.medium,
-                    horizontal: Insets.large,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(state.user?.name ?? ''),
-                      Text(state.user?.email ?? ''),
-                    ],
-                  ),
-                );
-              },
-              empty: () => const EmptyPage(),
-              error: () => const ErrorPage(),
-            );
-          },
+          builder: (context, state) => state.type.map(
+            loading: () => const LoadingPage(),
+            loaded: () => Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: Insets.medium,
+                horizontal: Insets.large,
+              ),
+              child: Column(
+                children: [
+                  Text(state.user?.name ?? ''),
+                  Text(state.user?.email ?? ''),
+                ],
+              ),
+            ),
+            empty: () => const EmptyPage(),
+            error: () => const ErrorPage(),
+          ),
         ),
       ),
     );

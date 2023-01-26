@@ -33,6 +33,17 @@ void main() {
       );
 
       test(
+        'Deletes key',
+        () async {
+          when(() => mockSharedPreferences.remove('key')).thenAnswer((_) async => true);
+
+          final result = await preferenceAssistant.remove(key: 'key');
+
+          expect(result, true);
+        },
+      );
+
+      test(
         'Writes string value',
         () async {
           when(() => mockSharedPreferences.setString('key', 'value')).thenAnswer((_) async => true);

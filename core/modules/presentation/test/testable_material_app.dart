@@ -5,8 +5,7 @@ import 'package:presentation/l10n/translations.dart';
 class TestableMaterialApp extends StatelessWidget {
   const TestableMaterialApp({
     required this.child,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final Widget child;
 

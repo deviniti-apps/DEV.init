@@ -52,7 +52,7 @@ void main() {
               any(that: equals('/dashboard')),
               any(),
             ),
-          ).thenAnswer((_) async {});
+          ).thenAnswer((_) async => null);
           when(() => mockAuthBloc.state).thenReturn(initialState.copyWith(isAuthenticated: true));
 
           // find

@@ -14,8 +14,7 @@ class Application extends StatelessWidget {
   Application({
     required this.appTheme,
     required this.appRouteFactory,
-    Key? key,
-  }) : super(key: key);
+  });
 
   final navigatorKey = GlobalKey<NavigatorState>();
   final AppTheme appTheme;
@@ -44,14 +43,12 @@ class Application extends StatelessWidget {
           darkTheme: darkTheme,
           onGenerateRoute: appRouteFactory.route,
           navigatorKey: navigatorKey,
-          builder: (context, child) {
-            return AuthNavigationHub(
-              navigatorKey: navigatorKey,
-              child: SnackBarContainer(
-                child: child,
-              ),
-            );
-          },
+          builder: (context, child) => AuthNavigationHub(
+            navigatorKey: navigatorKey,
+            child: SnackBarContainer(
+              child: child,
+            ),
+          ),
         ),
       ),
     );

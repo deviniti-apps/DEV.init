@@ -6,12 +6,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:presentation/common/state_type.dart';
 import 'package:presentation/screens/dashboard/bloc/dashboard_bloc.dart';
-import 'package:presentation/screens/dashboard/dashboard_argument.dart';
 
 class MockGetUserUsecase extends Mock implements GetUserUsecase {}
 
 void main() {
-  const DashboardArgument argument = DashboardArgument();
   late MockGetUserUsecase mockGetUserUsecase;
   late DashboardBloc bloc;
 
@@ -19,7 +17,6 @@ void main() {
     () {
       mockGetUserUsecase = MockGetUserUsecase();
       bloc = DashboardBloc(
-        argument: argument,
         getUserUsecase: mockGetUserUsecase,
       );
     },
@@ -28,11 +25,11 @@ void main() {
   blocTest<DashboardBloc, DashboardState>(
     'On DashboardEvent.started() should emit state with user when there is no error',
     build: () => bloc,
-    act: (bloc) => bloc.add(const DashboardEvent.started()),
+    act: (bloc) => bloc.add(const DashboardEvent.initiated()),
     setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.right(user)),
     verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
-      DashboardState.initial(argument: argument).copyWith(
+      DashboardState.initial().copyWith(
         type: StateType.loaded,
         user: user,
       ),
@@ -42,11 +39,11 @@ void main() {
   blocTest<DashboardBloc, DashboardState>(
     'On DashboardEvent.started() should emit state with error when there is error while getting current user',
     build: () => bloc,
-    act: (bloc) => bloc.add(const DashboardEvent.started()),
+    act: (bloc) => bloc.add(const DashboardEvent.initiated()),
     setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.left(GetUserFailure.fatal)),
     verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
-      DashboardState.initial(argument: argument).copyWith(
+      DashboardState.initial().copyWith(
         type: StateType.error,
         user: null,
       ),

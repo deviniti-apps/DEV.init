@@ -77,7 +77,6 @@ class LightPalette extends Palette {
   final Color badgeColor4 = const Color(0xff5D1B97);
 }
 
-// todo: correct it
 class DarkPalette extends Palette {
   @override
   final Brightness brightness = Brightness.dark;
@@ -153,7 +152,6 @@ class AppTheme {
       ),
       iconTheme: IconThemeData(color: palette.iconColor),
       canvasColor: palette.backgroundColor,
-      backgroundColor: palette.backgroundColor,
       scaffoldBackgroundColor: palette.backgroundColor,
       appBarTheme: AppBarTheme(
         centerTitle: false,
@@ -183,68 +181,68 @@ class AppTheme {
     );
     return theme.copyWith(
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(primary: palette.accentVariantColor),
+        style: ElevatedButton.styleFrom(backgroundColor: palette.accentVariantColor),
       ),
     );
   }
 
   TextTheme get _textThemeHandset => TextTheme(
-        headline1: GoogleFonts.lato(
+        displayLarge: GoogleFonts.lato(
           fontSize: 36,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.48,
         ),
-        headline2: GoogleFonts.lato(
+        displayMedium: GoogleFonts.lato(
           fontSize: 28,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.48,
         ),
-        headline3: GoogleFonts.lato(
+        displaySmall: GoogleFonts.lato(
           fontSize: 22,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.48,
         ),
-        headline5: GoogleFonts.lato(
+        headlineSmall: GoogleFonts.lato(
           fontSize: 17,
           fontWeight: FontWeight.w600,
           letterSpacing: -0.408,
         ),
-        headline6: GoogleFonts.lato(
+        titleLarge: GoogleFonts.lato(
           fontSize: 14,
           fontWeight: FontWeight.w400,
           letterSpacing: -0.078,
         ),
-        subtitle1: GoogleFonts.lato(
+        titleMedium: GoogleFonts.lato(
           fontSize: 16,
           fontWeight: FontWeight.bold,
           letterSpacing: 0.19,
         ),
-        subtitle2: GoogleFonts.lato(
+        titleSmall: GoogleFonts.lato(
           fontSize: 12,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.64,
         ),
-        bodyText1: GoogleFonts.lato(
+        bodyLarge: GoogleFonts.lato(
           fontSize: 16,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.32,
         ),
-        bodyText2: GoogleFonts.lato(
+        bodyMedium: GoogleFonts.lato(
           fontSize: 14,
           fontWeight: FontWeight.w300,
           letterSpacing: 0.32,
         ),
-        button: GoogleFonts.lato(
+        labelLarge: GoogleFonts.lato(
           fontSize: 18,
           fontWeight: FontWeight.w500,
           letterSpacing: 0.32,
         ),
-        caption: GoogleFonts.lato(
+        bodySmall: GoogleFonts.lato(
           fontSize: 18,
           fontWeight: FontWeight.w400,
           letterSpacing: 0.32,
         ),
-        overline: GoogleFonts.lato(
+        labelSmall: GoogleFonts.lato(
           fontSize: 12,
           fontWeight: FontWeight.w300,
           letterSpacing: 0.64,
