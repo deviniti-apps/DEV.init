@@ -4,13 +4,13 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: "3.3.0"
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: "3.7.0"
 
 dependencies:
   adaptive_theme: 3.1.1
   bloc_concurrency: 0.2.0
-  collection: 1.16.0
+  collection: 1.17.0
   cupertino_icons: 1.0.5
   domain:
     path: ../domain
@@ -19,11 +19,11 @@ dependencies:
   flutter_bloc: 8.1.1
   flutter_localizations:
     sdk: flutter
-  flutter_svg: 1.1.4
+  flutter_svg: 1.1.6
   foundation:
     path: ../foundation
-  fpdart: 0.2.0
-  freezed_annotation: 2.1.0
+  fpdart: 0.4.0
+  freezed_annotation: 2.2.0
   get_it: 7.2.0
   google_fonts: 3.0.1
   intl: 0.17.0
@@ -33,13 +33,13 @@ dependencies:
     path: ../remote
 
 dev_dependencies:
-  analyzer: 4.7.0
+  analyzer: 5.4.0
   bloc_test: 9.1.0
-  build_runner: 2.2.0
+  build_runner: 2.3.3
   flutter_test:
     sdk: flutter
-  freezed: 2.1.0+1
-  lints: 2.0.0
+  freezed: 2.3.2
+  lints: 2.0.1
   mockingjay: 0.3.0
   mocktail: 0.3.0
   platform: 3.1.0

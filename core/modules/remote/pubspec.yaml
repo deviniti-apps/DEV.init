@@ -4,32 +4,32 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: "3.3.0"
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: "3.7.0"
 
 dependencies:
-  collection: 1.16.0
+  collection: 1.17.0
   dio: 4.0.6
   domain:
     path: ../domain
   flutter:
     sdk: flutter
-  flutter_pretty_dio_logger: 2.0.2
+  flutter_pretty_dio_logger: 2.0.3
   foundation:
     path: ../foundation
-  fpdart: 0.2.0
+  fpdart: 0.4.0
   get_it: 7.2.0
-  json_annotation: 4.6.0
-  json_serializable: 6.3.1
+  json_annotation: 4.8.0
+  json_serializable: 6.6.0
   project_linter:
     path: ../project_linter
-  retrofit: 3.0.1+1
+  retrofit: 3.3.1
 
 dev_dependencies:
-  build_runner: 2.2.0
+  build_runner: 2.3.3
   mocktail: 0.3.0
   platform: 3.1.0
-  retrofit_generator: 4.0.3+1
-  test: 1.21.5
+  retrofit_generator: 4.2.0
+  test: 1.22.2
 
 flutter:

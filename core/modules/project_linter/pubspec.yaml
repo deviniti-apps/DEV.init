@@ -2,9 +2,9 @@ name: project_linter
 version: 1.0.0
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: "3.3.0"
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: "3.7.0"
 
 dependencies:
-  lint: 1.8.2
+  lint: 2.0.1
   platform: 3.1.0

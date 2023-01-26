@@ -4,28 +4,28 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: "3.3.0"
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: "3.7.0"
 
 dependencies:
-  device_info_plus: 4.1.2
+  device_info_plus: 8.0.0
   flutter:
     sdk: flutter
   foundation:
     path: ../foundation
-  fpdart: 0.2.0
-  freezed_annotation: 2.1.0
+  fpdart: 0.4.0
+  freezed_annotation: 2.2.0
   get_it: 7.2.0
   project_linter:
     path: ../project_linter
-  shared_preferences: 2.0.15
+  shared_preferences: 2.0.17
 
 dev_dependencies:
-  analyzer: 4.7.0
-  build_runner: 2.2.0
-  freezed: 2.1.0+1
+  analyzer: 5.4.0
+  build_runner: 2.3.3
+  freezed: 2.3.2
   mocktail: 0.3.0
   platform: 3.1.0
-  test: 1.21.5
+  test: 1.22.2
 
 flutter:
