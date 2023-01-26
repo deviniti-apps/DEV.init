@@ -18,7 +18,7 @@ class {{usecaseName.pascalCase()}}Usecase implements {{#acceptsParam}}Param{{/ac
     return (await _{{usecaseName.camelCase()}}RemoteSourceAction.execute({{#acceptsParam}}param{{/acceptsParam}})).fold(
       (errorDetail) => errorDetail.map(
         backend: (backendError) {
-          switch (backendError.responseCode) {
+          switch (backendError.errorCode) {
             default:
               return left({{usecaseName.pascalCase()}}Failure.fatal);
           }

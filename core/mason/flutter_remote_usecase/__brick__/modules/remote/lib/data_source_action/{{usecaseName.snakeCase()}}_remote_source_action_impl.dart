@@ -31,7 +31,7 @@ class {{usecaseName.pascalCase()}}RemoteSourceActionImpl implements {{usecaseNam
       {{#returnsDomainModel}}final result = {{/returnsDomainModel}}await _{{apiName.camelCase()}}RestApi.{{usecaseName.camelCase()}}({{#acceptsParam}}
         _{{usecaseName.camelCase()}}RequestToRemoteMapper.map(request),
     {{/acceptsParam}});
-      return right({{#returnsDomainModel}}_{{usecaseName.camelCase()}}ResponseToDomainMapper.map(result.data!),{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}});
+      return right({{#returnsDomainModel}}_{{usecaseName.camelCase()}}ResponseToDomainMapper.map(result),{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}});
     } on Exception catch (error, stackTrace) {
       return left(_errorConverter.handleRemoteError(error, stackTrace));
     // Errors are expected here for API faults - e.g. missing response body, type mismatches

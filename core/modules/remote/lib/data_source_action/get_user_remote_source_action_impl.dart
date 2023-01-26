@@ -25,9 +25,12 @@ class GetUserRemoteSourceActionImpl implements GetUserRemoteSourceAction {
     try {
       final response = await _userRestApi.getCurrentUser();
       return right(_userRemoteToUserMapper.map(response));
-      // ignore: avoid_catches_without_on_clauses
-    } catch (error, stackTrace) {
+    } on Exception catch (error, stackTrace) {
       return left(_errorConverter.handleRemoteError(error, stackTrace));
+      // Errors are expected here for API faults - e.g. missing response body, type mismatches
+      // ignore: avoid_catching_errors
+    } on Error catch (error, stackTrace) {
+      return left(ErrorDetail.fatal(throwable: error, stackTrace: stackTrace));
     }
   }
 }
