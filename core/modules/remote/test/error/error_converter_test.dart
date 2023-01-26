@@ -21,7 +21,7 @@ void main() {
 
       expect(
         result,
-        ErrorDetail(
+        ErrorDetail.backend(
           traceId: 'traceId',
           errorCode: 'missing_filter',
           message: 'Mandatory filter parameter is missing',
@@ -49,7 +49,7 @@ void main() {
 
       expect(
         result,
-        ErrorDetail.fatal(),
+        const ErrorDetail.fatal(),
       );
     },
   );
@@ -77,7 +77,7 @@ void main() {
 
       expect(
         result,
-        ErrorDetail.fatal(),
+        const ErrorDetail.fatal(),
       );
     },
   );
@@ -91,7 +91,7 @@ void main() {
 
       expect(
         result,
-        ErrorDetail.fatal(),
+        const ErrorDetail.fatal(),
       );
     },
   );

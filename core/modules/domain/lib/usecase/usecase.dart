@@ -1,9 +1,9 @@
 import 'package:fpdart/fpdart.dart';
 
-abstract class UseCase<T, E> {
-  TaskEither<T, E> execute();
+abstract class UseCase<FAILURE, RESULT> {
+  Future<Either<FAILURE, RESULT>> execute();
 }
 
-abstract class ParamUseCase<T, E, U> {
-  TaskEither<T, E> execute({required U param});
+abstract class ParamUseCase<FAILURE, RESULT, PARAM> {
+  Future<Either<FAILURE, RESULT>> execute({required PARAM param});
 }

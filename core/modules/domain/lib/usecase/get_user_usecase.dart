@@ -13,7 +13,18 @@ class GetUserUsecase implements UseCase<GetUserFailure, User> {
   final GetUserRemoteSourceAction _getUserRemoteSourceAction;
 
   @override
-  TaskEither<GetUserFailure, User> execute() {
-    return _getUserRemoteSourceAction.execute().bimap((l) => GetUserFailure.fatal, (r) => r);
+  Future<Either<GetUserFailure, User>> execute() async {
+    return (await _getUserRemoteSourceAction.execute()).fold(
+      (errorDetail) => errorDetail.map(
+        backend: (backendError) {
+          switch (backendError.errorCode) {
+            default:
+              return left(GetUserFailure.fatal);
+          }
+        },
+        fatal: (fatalError) => left(GetUserFailure.fatal),
+      ),
+      right,
+    );
   }
 }

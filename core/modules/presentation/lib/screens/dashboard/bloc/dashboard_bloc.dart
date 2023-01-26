@@ -8,9 +8,7 @@ import 'package:presentation/common/state_type.dart';
 import 'package:presentation/screens/dashboard/dashboard_argument.dart';
 
 part 'dashboard_bloc.freezed.dart';
-
 part 'dashboard_event.dart';
-
 part 'dashboard_state.dart';
 
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
@@ -28,14 +26,18 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     _DashboardStarted event,
     Emitter<DashboardState> emit,
   ) async {
-    emit(state.copyWith(type: StateType.loading));
-    final newState = await _getUserUsecase
-        .execute()
-        .match(
-          (l) => state.copyWith(type: StateType.error),
-          (user) => state.copyWith(type: StateType.loaded, user: user),
-        )
-        .run();
-    emit(newState);
+    (await _getUserUsecase.execute()).fold(
+      (_) => emit(
+        state.copyWith(
+          type: StateType.error,
+        ),
+      ),
+      (user) => emit(
+        state.copyWith(
+          type: StateType.loaded,
+          user: user,
+        ),
+      ),
+    );
   }
 }

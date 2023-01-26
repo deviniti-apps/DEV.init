@@ -28,17 +28,10 @@ void main() {
   blocTest<DashboardBloc, DashboardState>(
     'On DashboardEvent.started() should emit state with user when there is no error',
     build: () => bloc,
-    act: (bloc) {
-      bloc.add(const DashboardEvent.started());
-    },
-    setUp: () {
-      when(mockGetUserUsecase.execute).thenAnswer((_) => TaskEither.right(user));
-    },
-    verify: (bloc) {
-      verify(mockGetUserUsecase.execute).called(1);
-    },
+    act: (bloc) => bloc.add(const DashboardEvent.started()),
+    setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.right(user)),
+    verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
-      DashboardState.initial(argument: argument).copyWith(type: StateType.loading),
       DashboardState.initial(argument: argument).copyWith(
         type: StateType.loaded,
         user: user,
@@ -49,17 +42,10 @@ void main() {
   blocTest<DashboardBloc, DashboardState>(
     'On DashboardEvent.started() should emit state with error when there is error while getting current user',
     build: () => bloc,
-    act: (bloc) {
-      bloc.add(const DashboardEvent.started());
-    },
-    setUp: () {
-      when(mockGetUserUsecase.execute).thenAnswer((_) => TaskEither.left(GetUserFailure.fatal));
-    },
-    verify: (bloc) {
-      verify(mockGetUserUsecase.execute).called(1);
-    },
+    act: (bloc) => bloc.add(const DashboardEvent.started()),
+    setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.left(GetUserFailure.fatal)),
+    verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
-      DashboardState.initial(argument: argument).copyWith(type: StateType.loading),
       DashboardState.initial(argument: argument).copyWith(
         type: StateType.error,
         user: null,

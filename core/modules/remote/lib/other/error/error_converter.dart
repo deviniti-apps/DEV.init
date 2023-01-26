@@ -13,12 +13,12 @@ class ErrorConverter {
     }
 
     if (error is! String) {
-      return ErrorDetail.fatal();
+      return const ErrorDetail.fatal();
     }
 
     try {
       final errorObject = ErrorObject.fromJson(jsonDecode(error) as Map<String, dynamic>);
-      return ErrorDetail(
+      return ErrorDetail.backend(
         traceId: errorObject.traceId,
         errorCode: errorObject.error,
         message: errorObject.message,
@@ -26,13 +26,13 @@ class ErrorConverter {
       );
       // ignore: avoid_catches_without_on_clauses
     } catch (_) {
-      return ErrorDetail.fatal();
+      return const ErrorDetail.fatal();
     }
   }
 
   ErrorDetail handleRemoteError(Object error, StackTrace stackTrace) {
     if (error is DioError && error.type == DioErrorType.response) {
-      return convert(error) ?? ErrorDetail.fatal();
+      return convert(error) ?? const ErrorDetail.fatal();
     }
     return ErrorDetail.fatal(throwable: error, stackTrace: stackTrace);
   }

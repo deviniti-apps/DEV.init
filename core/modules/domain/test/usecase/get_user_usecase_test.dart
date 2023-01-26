@@ -30,9 +30,9 @@ void main() {
         () async {
           const user = User(name: 'name', email: 'name@example.com');
 
-          when(() => mockGetUserRemoteSourceAction.execute()).thenReturn(TaskEither<ErrorDetail, User>.right(user));
+          when(() => mockGetUserRemoteSourceAction.execute()).thenAnswer((_) async => right(user));
 
-          final result = await getUserUsecase.execute().run();
+          final result = await getUserUsecase.execute();
 
           result.match(
             (it) => throw it,
@@ -44,10 +44,9 @@ void main() {
       test(
         'Should return fatal error detail when getting current user fails',
         () async {
-          when(() => mockGetUserRemoteSourceAction.execute())
-              .thenReturn(TaskEither<ErrorDetail, User>.left(ErrorDetail.fatal()));
+          when(() => mockGetUserRemoteSourceAction.execute()).thenAnswer((_) async => left(const ErrorDetail.fatal()));
 
-          final result = await getUserUsecase.execute().run();
+          final result = await getUserUsecase.execute();
 
           result.match(
             (it) => expect(it, GetUserFailure.fatal),
