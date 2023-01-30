@@ -11,6 +11,7 @@ dependencies:
   device_info_plus: 8.0.0
   flutter:
     sdk: flutter
+  flutter_secure_storage: 7.0.1
   foundation:
     path: ../foundation
   fpdart: 0.4.0

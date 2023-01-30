@@ -1,4 +1,5 @@
-import 'package:domain/store/user_store.dart';
+import 'package:domain/model/user.dart';
+import 'package:domain/store/single_value_store.dart';
 
 abstract class AuthTokenProvider {
   late Future<String> token;
@@ -6,11 +7,11 @@ abstract class AuthTokenProvider {
 
 class AuthTokenProviderImpl extends AuthTokenProvider {
   AuthTokenProviderImpl({
-    required UserStore userStore,
+    required SingleValueStore<User> userStore,
   }) : _userStore = userStore;
 
   // ignore: unused_field
-  final UserStore _userStore;
+  final SingleValueStore<User> _userStore;
 
   @override
   Future<String> get token async => '';

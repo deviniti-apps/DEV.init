@@ -5,3 +5,4 @@ targets:
         generate_for:
           include:
             - lib/model/**.dart
+            - test/store/storable_model.dart
