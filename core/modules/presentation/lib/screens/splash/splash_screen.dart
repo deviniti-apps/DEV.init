@@ -20,13 +20,7 @@ class SplashScreen extends StatelessWidget {
         ),
         child: Center(
           child: TextButton(
-            onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                DashboardScreen.routeName,
-                (_) => false,
-              );
-              context.read<AuthBloc>().add(const AuthEvent.authenticated());
-            },
+            onPressed: () => context.read<AuthBloc>().add(const AuthEvent.authenticated()),
             child: const Text('Start'),
           ),
         ),

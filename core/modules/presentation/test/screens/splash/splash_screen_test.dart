@@ -42,7 +42,7 @@ void main() {
       );
 
       testWidgets(
-        'Should push dashboard page when button is tapped',
+        'should add authenticated event when button is tapped',
         (tester) async {
           // arrange
           final initialState = AuthState.initial();
@@ -76,19 +76,12 @@ void main() {
 
           await tester.tap(button);
 
-          // verify
-          verify(
-            () => mockNavigator.pushNamedAndRemoveUntil(
-              any(that: equals('/dashboard')),
-              any(),
-            ),
-          ).called(1);
-
-          verify(() => mockAuthBloc.add(any(that: isA<AuthEventAuthenticated>()))).called(1);
-
           // expect
           expect(startText, findsOneWidget);
           expect(button, findsOneWidget);
+
+          // verify
+          verify(() => mockAuthBloc.add(any(that: isA<AuthEventAuthenticated>()))).called(1);
         },
       );
     },
