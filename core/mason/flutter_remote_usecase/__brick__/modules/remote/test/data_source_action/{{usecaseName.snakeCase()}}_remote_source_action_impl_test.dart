@@ -7,8 +7,7 @@ import 'package:remote/api/{{apiName.snakeCase()}}_rest_api.dart';
 import 'package:remote/data_source_action/{{usecaseName.snakeCase()}}_remote_source_action_impl.dart';
 import 'package:remote/mapper/mapper.dart';{{#acceptsParam}}
 import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_request_remote_model.dart';{{/acceptsParam}}{{#returnsDomainModel}}
-import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_response_remote_model.dart';
-import 'package:remote/models/response_wrapper.dart';{{/returnsDomainModel}}
+import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_response_remote_model.dart';{{/returnsDomainModel}}
 import 'package:remote/other/error/error_converter.dart';
 import 'package:test/test.dart';
 
@@ -97,7 +96,7 @@ void main() {
             const ErrorDetail.fatal(),
           );
 
-          final result = await {{usecaseName.camelCase()}}RemoteSourceActionImpl.execute({{#acceptsParam}}fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}});
+          final result = await {{usecaseName.camelCase()}}RemoteSourceActionImpl.execute({{#acceptsParam}}fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}}).run();
 
           result.match(
             (l) => expect(l, const ErrorDetail.fatal()),
@@ -118,12 +117,7 @@ void main() {
           {{/acceptsParam}}when(
             () => mock{{apiName.pascalCase()}}RestApi.{{usecaseName.camelCase()}}({{#acceptsParam}}fallback{{usecaseName.pascalCase()}}RequestRemoteModel{{/acceptsParam}}),
           ).thenAnswer({{#returnsDomainModel}}
-            (_) async => const ResponseWrapper(
-              status: 200,
-              responseCode: 0,
-              message: 'OK',
-              data: fallback{{usecaseName.pascalCase()}}ResponseRemoteModel,
-            ),{{/returnsDomainModel}}{{^returnsDomainModel}}
+            (_) async => fallback{{usecaseName.pascalCase()}}ResponseRemoteModel,{{/returnsDomainModel}}{{^returnsDomainModel}}
             (_) async => unit,{{/returnsDomainModel}}
           );{{#returnsDomainModel}}
 
@@ -133,7 +127,7 @@ void main() {
             fallback{{domainModelName.pascalCase()}},
           );{{/returnsDomainModel}}
 
-          final result = await {{usecaseName.camelCase()}}RemoteSourceActionImpl.execute({{#acceptsParam}}fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}});
+          final result = await {{usecaseName.camelCase()}}RemoteSourceActionImpl.execute({{#acceptsParam}}fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}}).run();
 
           result.match(
             (l) => throw l,

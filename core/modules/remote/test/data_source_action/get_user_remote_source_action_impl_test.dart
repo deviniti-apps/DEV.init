@@ -63,7 +63,7 @@ void main() {
           when(() => mockUserRemoteToUserMapper.map(any(that: equals(remoteUser)))).thenReturn(user);
           when(() => mockUserRestApi.getCurrentUser()).thenAnswer((_) async => remoteUser);
 
-          final result = await getUserRemoteSourceActionImpl.execute();
+          final result = await getUserRemoteSourceActionImpl.execute().run();
 
           result.match(
             (it) => throw it,
@@ -78,7 +78,7 @@ void main() {
           when(() => mockUserRestApi.getCurrentUser()).thenThrow(Exception('Error'));
           when(() => mockErrorConverter.handleRemoteError(any(), any())).thenReturn(const ErrorDetail.fatal());
 
-          final result = await getUserRemoteSourceActionImpl.execute();
+          final result = await getUserRemoteSourceActionImpl.execute().run();
 
           result.match(
             (it) => expect(it, const ErrorDetail.fatal()),

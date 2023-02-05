@@ -2,6 +2,7 @@ import 'package:domain/data_source_action/{{usecaseName.snakeCase()}}_remote_sou
 import 'package:domain/model/{{domainModelName.snakeCase()}}.dart';{{/returnsDomainModel}}{{#acceptsParam}}
 import 'package:domain/model/{{usecaseName.snakeCase()}}_request.dart';{{/acceptsParam}}
 import 'package:domain/model/error_detail.dart';
+import 'package:foundation/fpdarts.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:remote/api/{{apiName.snakeCase()}}_rest_api.dart';
 import 'package:remote/mapper/mapper.dart';{{#acceptsParam}}
@@ -26,18 +27,15 @@ class {{usecaseName.pascalCase()}}RemoteSourceActionImpl implements {{usecaseNam
   final Mapper<{{usecaseName.pascalCase()}}ResponseRemoteModel, {{domainModelName.pascalCase()}}> _{{usecaseName.camelCase()}}ResponseToDomainMapper;{{/returnsDomainModel}}
 
   @override
-  Future<Either<ErrorDetail, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}>> execute({{#acceptsParam}}{{usecaseName.pascalCase()}}Request request{{/acceptsParam}}) async {
-    try {
-      {{#returnsDomainModel}}final result = {{/returnsDomainModel}}await _{{apiName.camelCase()}}RestApi.{{usecaseName.camelCase()}}({{#acceptsParam}}
-        _{{usecaseName.camelCase()}}RequestToRemoteMapper.map(request),
-    {{/acceptsParam}});
-      return right({{#returnsDomainModel}}_{{usecaseName.camelCase()}}ResponseToDomainMapper.map(result),{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}});
-    } on Exception catch (error, stackTrace) {
-      return left(_errorConverter.handleRemoteError(error, stackTrace));
-    // Errors are expected here for API faults - e.g. missing response body, type mismatches
-    // ignore: avoid_catching_errors
-    } on Error catch (error, stackTrace) {
-      return left(ErrorDetail.fatal(throwable: error, stackTrace: stackTrace));
-    }
+  TaskEither<ErrorDetail, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}> execute({{#acceptsParam}}{{usecaseName.pascalCase()}}Request request{{/acceptsParam}}) {
+    return tryCatchE(
+      () async {
+        {{#returnsDomainModel}}final response = {{/returnsDomainModel}}await _{{apiName.camelCase()}}RestApi.{{usecaseName.camelCase()}}({{#acceptsParam}}
+          _{{usecaseName.camelCase()}}RequestToRemoteMapper.map(request),
+        {{/acceptsParam}});
+        return right({{#returnsDomainModel}}_{{usecaseName.camelCase()}}ResponseToDomainMapper.map(response),{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}});
+      },
+      _errorConverter.handleRemoteError,
+    );
   }
 }

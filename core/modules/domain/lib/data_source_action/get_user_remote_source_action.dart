@@ -3,5 +3,5 @@ import 'package:domain/model/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class GetUserRemoteSourceAction {
-  Future<Either<ErrorDetail, User>> execute();
+  TaskEither<ErrorDetail, User> execute();
 }

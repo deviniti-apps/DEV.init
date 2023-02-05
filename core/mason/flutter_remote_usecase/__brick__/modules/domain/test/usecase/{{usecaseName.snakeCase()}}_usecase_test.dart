@@ -50,11 +50,11 @@ void main() {
         () async {
           when(
             () => mock{{usecaseName.pascalCase()}}RemoteSourceAction.execute({{#acceptsParam}}any(){{/acceptsParam}}),
-          ).thenAnswer(
-            (_) async => Either.left(const ErrorDetail.backend()),
+          ).thenReturn(
+            TaskEither.left(const ErrorDetail.backend()),
           );
 
-          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}});
+          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}}).run();
 
           result.match(
             (l) => expect(l, {{usecaseName.pascalCase()}}Failure.fatal),
@@ -68,11 +68,11 @@ void main() {
         () async {
           when(
             () => mock{{usecaseName.pascalCase()}}RemoteSourceAction.execute({{#acceptsParam}}any(){{/acceptsParam}}),
-          ).thenAnswer(
-            (_) async => Either.left(const ErrorDetail.fatal()),
+          ).thenReturn(
+            TaskEither.left(const ErrorDetail.fatal()),
           );
 
-          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}});
+          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}}).run();
 
           result.match(
             (l) => expect(l, {{usecaseName.pascalCase()}}Failure.fatal),
@@ -86,11 +86,11 @@ void main() {
         () async {
           when(
             () => mock{{usecaseName.pascalCase()}}RemoteSourceAction.execute({{#acceptsParam}}any(){{/acceptsParam}}),
-          ).thenAnswer(
-            (_) async => Either.right({{#returnsDomainModel}}fallback{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}}),
+          ).thenReturn(
+            TaskEither.right({{#returnsDomainModel}}fallback{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}unit{{/returnsDomainModel}}),
           );
 
-          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}});
+          final result = await {{usecaseName.camelCase()}}Usecase.execute({{#acceptsParam}}param: fallback{{usecaseName.pascalCase()}}Request{{/acceptsParam}}).run();
 
           result.match(
             (l) => throw l,

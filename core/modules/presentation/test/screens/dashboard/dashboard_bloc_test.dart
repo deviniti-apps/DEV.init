@@ -26,7 +26,7 @@ void main() {
     'On DashboardEvent.started() should emit state with user when there is no error',
     build: () => bloc,
     act: (bloc) => bloc.add(const DashboardEvent.initiated()),
-    setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.right(user)),
+    setUp: () => when(mockGetUserUsecase.execute).thenReturn(TaskEither.right(user)),
     verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
       DashboardState.initial().copyWith(
@@ -40,7 +40,7 @@ void main() {
     'On DashboardEvent.started() should emit state with error when there is error while getting current user',
     build: () => bloc,
     act: (bloc) => bloc.add(const DashboardEvent.initiated()),
-    setUp: () => when(mockGetUserUsecase.execute).thenAnswer((_) async => Either.left(GetUserFailure.fatal)),
+    setUp: () => when(mockGetUserUsecase.execute).thenReturn(TaskEither.left(GetUserFailure.fatal)),
     verify: (bloc) => verify(mockGetUserUsecase.execute).called(1),
     expect: () => [
       DashboardState.initial().copyWith(

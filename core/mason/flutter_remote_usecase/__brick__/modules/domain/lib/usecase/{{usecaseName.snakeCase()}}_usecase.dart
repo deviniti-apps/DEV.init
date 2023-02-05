@@ -14,18 +14,18 @@ class {{usecaseName.pascalCase()}}Usecase implements {{#acceptsParam}}Param{{/ac
   final {{usecaseName.pascalCase()}}RemoteSourceAction _{{usecaseName.camelCase()}}RemoteSourceAction;
 
   @override
-  Future<Either<{{usecaseName.pascalCase()}}Failure, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}>> execute({{#acceptsParam}}{required {{usecaseName.pascalCase()}}Request param}{{/acceptsParam}}) async {
-    return (await _{{usecaseName.camelCase()}}RemoteSourceAction.execute({{#acceptsParam}}param{{/acceptsParam}})).fold(
-      (errorDetail) => errorDetail.map(
-        backend: (backendError) {
-          switch (backendError.errorCode) {
-            default:
-              return left({{usecaseName.pascalCase()}}Failure.fatal);
-          }
-        },
-        fatal: (fatalError) => left({{usecaseName.pascalCase()}}Failure.fatal),
-      ),
-      right,
-    );
+  TaskEither<{{usecaseName.pascalCase()}}Failure, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}> execute({{#acceptsParam}}{required {{usecaseName.pascalCase()}}Request param}{{/acceptsParam}}) {
+    return _{{usecaseName.camelCase()}}RemoteSourceAction.execute({{#acceptsParam}}param{{/acceptsParam}}).bimap(
+          (errorDetail) => errorDetail.map(
+            backend: (backendError) {
+              switch (backendError.errorCode) {
+                default:
+                  return {{usecaseName.pascalCase()}}Failure.fatal;
+              }
+            },
+            fatal: (fatalError) => {{usecaseName.pascalCase()}}Failure.fatal,
+          ),
+          (r) => r,
+        );
   }
 }

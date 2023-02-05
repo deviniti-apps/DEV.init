@@ -4,5 +4,5 @@
 import 'package:fpdart/fpdart.dart';
 
 abstract class {{usecaseName.pascalCase()}}RemoteSourceAction {
-  Future<Either<ErrorDetail, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}>> execute({{#acceptsParam}}{{usecaseName.pascalCase()}}Request request{{/acceptsParam}});
+  TaskEither<ErrorDetail, {{#returnsDomainModel}}{{domainModelName.pascalCase()}}{{/returnsDomainModel}}{{^returnsDomainModel}}Unit{{/returnsDomainModel}}> execute({{#acceptsParam}}{{usecaseName.pascalCase()}}Request request{{/acceptsParam}});
 }

@@ -24,7 +24,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     _Initiated event,
     Emitter<DashboardState> emit,
   ) async {
-    (await _getUserUsecase.execute()).fold(
+    (await _getUserUsecase.execute().run()).fold(
       (_) => emit(
         state.copyWith(
           type: StateType.error,
