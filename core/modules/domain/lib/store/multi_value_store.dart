@@ -82,7 +82,7 @@ class MultiValueStore<T extends Storable> {
     if (!_allowDuplicates && newValues.isEmpty) {
       return false;
     }
-    final updatedValues = prepend ? [...newValues, ...previousValues] : [previousValues, ...newValues];
+    final updatedValues = prepend ? [...newValues, ...previousValues] : [...previousValues, ...newValues];
     await _write(updatedValues);
     return true;
   }
