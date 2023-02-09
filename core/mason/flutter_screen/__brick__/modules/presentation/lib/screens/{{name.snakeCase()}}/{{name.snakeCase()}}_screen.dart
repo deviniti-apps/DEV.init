@@ -36,6 +36,8 @@ class {{name.pascalCase()}}Screen extends StatelessWidget {
               },
               empty: () => const EmptyPage(),
               error: () => const ErrorPage(),
+              initial: () => const SizedBox.shrink(),
+              success: () => const SizedBox.shrink(),
             );
           },
         ),{{/bloc}}{{^bloc}}

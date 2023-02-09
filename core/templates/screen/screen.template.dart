@@ -49,6 +49,8 @@ class _UPPER_CAMEL_CASE_NAME_Screen extends StatelessWidget {
               },
               empty: () => const EmptyPage(),
               error: () => const ErrorPage(),
+              initial: () => const SizedBox.shrink(),
+              success: () => const SizedBox.shrink(),
             );
           },
         ),
