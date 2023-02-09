@@ -67,16 +67,9 @@ platform :ios do
     match(
       keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
       keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
-      type: 'development',
-      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
-    )
-
-    match(
-      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
-      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
+      force_for_new_devices: true,
       type: 'adhoc',
+      app_identifier: ["_PACKAGE_NAME_.alpha"]
     )
 
     build_app(
@@ -84,7 +77,7 @@ platform :ios do
       output_name: "_RAW_NAME_Alpha.ipa",
       configuration: "Release-development",
       export_options: {
-        method: "app-store",
+        method: "ad-hoc",
         provisioningProfiles: {
           "_PACKAGE_NAME_.alpha" => "match AdHoc _PACKAGE_NAME_.alpha",
         }
@@ -118,23 +111,21 @@ platform :ios do
     match(
       keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
       keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
-      type: 'development',
-      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
-    )
-
-    match(
-      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
-      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
+      force_for_new_devices: true,
       type: 'adhoc'
+      app_identifier: ["_PACKAGE_NAME_.beta"]
     )
 
     build_app(
       scheme: "staging",
       output_name: "_RAW_NAME_Beta.ipa",
       configuration: "Release-staging",
-      export_method: "ad-hoc"
+      export_options: {
+        method: "ad-hoc",
+        provisioningProfiles: {
+          "_PACKAGE_NAME_.beta" => "match AdHoc _PACKAGE_NAME_.beta",
+        }
+      }
     )
 
     delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
@@ -164,23 +155,21 @@ platform :ios do
     match(
       keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
       keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
-      type: 'development',
-      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
-    )
-
-    match(
-      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
-      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
-      type: 'adhoc'
+      force_for_new_devices: true,
+      type: 'adhoc',
+      app_identifier: ["_PACKAGE_NAME_"]
     )
 
     build_app(
       scheme: "production",
       output_name: "_RAW_NAME_.ipa",
       configuration: "Release-production",
-      export_method: "ad-hoc"
+      export_options: {
+        method: "ad-hoc",
+        provisioningProfiles: {
+          "_PACKAGE_NAME_" => "match AdHoc _PACKAGE_NAME_",
+        }
+      }
     )
 
     delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
@@ -208,22 +197,20 @@ platform :ios do
       keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
       keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
       readonly: true,
-      type: 'development',
-      app_identifier: ["_PACKAGE_NAME_", "_PACKAGE_NAME_.alpha", "_PACKAGE_NAME_.beta"]
-    )
-
-    match(
-      keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
-      keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
-      readonly: true,
       type: 'appstore',
+      app_identifier: ["_PACKAGE_NAME_"]
     )
 
     build_app(
       scheme: "production",
       output_name: "_RAW_NAME_.ipa",
       configuration: "Release-production",
-      export_method: "app-store",
+      export_options: {
+        method: "app-store",
+        provisioningProfiles: {
+          "_PACKAGE_NAME_" => "match AppStore _PACKAGE_NAME_",
+        }
+      }
     )
 
     delete_temp_keychain(TEMP_KEYCHAIN_NAME_DEFAULT)
