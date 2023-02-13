@@ -7,6 +7,17 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - script@1:
+        title: SSH RSA WORKAROUND
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+
+            echo "Workaround with Ventura SSH issue described here: https://superuser.com/a/1749370"
+            echo "Host *" >> "$HOME/.ssh/config"
+            echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
+            echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
       - git-clone@6: { }
       - script@1:
           inputs:
@@ -23,7 +34,7 @@ workflows:
           title: copy files
       - flutter-installer@0:
           inputs:
-            - version: 2.10.4
+            - version: 3.7.1
       - script@1:
           inputs:
             - content: |-
@@ -31,7 +42,7 @@ workflows:
                 set -ex
                 cd _RAW_NAME_
                 chmod +x ci_prepare_all.sh
-                ./ci_prepare_all.sh
+                ./ci_prepare_all.sh $DEVELOPMENT_REST_API_URL
           title: flutter prepare all
       - script@1:
           inputs:
@@ -73,6 +84,17 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - script@1:
+        title: SSH RSA WORKAROUND
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+
+            echo "Workaround with Ventura SSH issue described here: https://superuser.com/a/1749370"
+            echo "Host *" >> "$HOME/.ssh/config"
+            echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
+            echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
       - git-clone@6: { }
       - script@1:
           inputs:
@@ -89,7 +111,7 @@ workflows:
           title: copy files
       - flutter-installer@0:
           inputs:
-            - version: 2.10.4
+            - version: 3.7.1
       - script@1:
           inputs:
             - content: |-
@@ -97,7 +119,7 @@ workflows:
                 set -ex
                 cd _RAW_NAME_
                 chmod +x ci_prepare_all.sh
-                ./ci_prepare_all.sh
+                ./ci_prepare_all.sh $STAGING_REST_API_URL
           title: flutter prepare all
       - script@1:
           inputs:
@@ -133,6 +155,17 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - script@1:
+        title: SSH RSA WORKAROUND
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+
+            echo "Workaround with Ventura SSH issue described here: https://superuser.com/a/1749370"
+            echo "Host *" >> "$HOME/.ssh/config"
+            echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
+            echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
       - git-clone@6: { }
       - script@1:
           inputs:
@@ -140,14 +173,19 @@ workflows:
                 #!/usr/bin/env bash
                 set -ex
                 cd _RAW_NAME_
+
                 echo "Copy Auth Key"
                 echo "$APP_STORE_CONNECT_API_KEY_FILE" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/auth_key.p8"
+
                 echo "Copy Google Play Service Account"
                 echo "$GOOGLE_PLAY_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/google-play-service-account.json"
+
+                echo "Copy jks file"
+                echo "$UPLOAD_KEY_CONTENT" | base64 --decode >> "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/app/upload-key.jks"
           title: copy files
       - flutter-installer@0:
           inputs:
-            - version: 2.5.3
+            - version: 3.7.1
       - script@1:
           inputs:
             - content: |-
@@ -155,7 +193,7 @@ workflows:
                 set -ex
                 cd _RAW_NAME_
                 chmod +x ci_prepare_all.sh
-                ./ci_prepare_all.sh
+                ./ci_prepare_all.sh $PRODUCTION_REST_API_URL
           title: flutter prepare all
       - script@1:
           inputs:
@@ -211,17 +249,13 @@ workflows:
                 chmod +x ci_test_all.sh
           title: flutter test all
 trigger_map:
-  - push_branch: master
-    workflow: build-test-deploy-production
-  - push_branch: release/*
-    workflow: build-test-deploy-staging
-  - push_branch: uat/*
-    workflow: build-test-deploy-uat
-  - pull_request_source_branch: feature/*
-    pull_request_target_branch: develop
-    workflow: test-all
-  - tag: alpha-*.*.*
-    workflow: build-test-deploy-development
+- push_branch: develop
+  workflow: build-test-deploy-development
+- pull_request_source_branch: feature/*
+  pull_request_target_branch: develop
+  workflow: test-all
+- tag: alpha-*.*.*
+  workflow: build-test-deploy-development
 meta:
   bitrise.io:
-    stack: osx-xcode-13.0.x
+    stack: osx-xcode-14.2.x-ventura
