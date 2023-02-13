@@ -1,0 +1,1 @@
+echo "API_URL=$1" > modules/presentation/lib/environment/.env

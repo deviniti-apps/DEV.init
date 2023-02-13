@@ -74,3 +74,5 @@ build/
 !**/ios/**/default.perspectivev3
 
 /lib/l10n/**.dart
+/lib/environment/.env
+/lib/environment/env.g.dart

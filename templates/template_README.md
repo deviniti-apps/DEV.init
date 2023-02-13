@@ -94,6 +94,43 @@ For more information read https://docs.fastlane.tools/actions/match/#parameters
 
 ### Environments
 
+This project uses [Envied](https://pub.dev/packages/envied) for managing environment properties. If you want to add new env variables, you should:
+- go to `modules/presentation/lib/environment/env.dart` file
+- add new static final there
+- update script inside `./flutter_build_env.sh` with created environemnt variable
+
+### Example of adding new env variable
+
+
+`modules/presentation/lib/environment/env.dart`
+```
+abstract class Env {
+  @EnviedField(varName: 'API_URL')
+  static final apiUrl = _Env.apiUrl; // it's already there
+
+  // Add new env
+  @EnviedField(varName: 'YOUR_NEW_ENV')
+  static final myNewEnv = _Env.myNewEnv;
+}
+```
+
+`./flutter_build_env.sh`
+```
+echo "API_URL=$1\nYOUR_NEW_ENV=$2" > modules/presentation/lib/environment/.env
+```
+
+then:
+
+```
+./flutter_build_env.sh "https://your_api_url.com" "your_new_env"
+```
+
+finally:
+
+```
+melos run generate_code
+```
+
 API environments with corresponding **flavors**
 
 - development

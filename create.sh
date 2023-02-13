@@ -62,6 +62,8 @@ if flutter create -t app --org "$packageName" -a kotlin -i swift "$appName"; the
     rm -rf test/
     rm -rf README.md
 
+    ./flutter_build_env.sh "https://yourapi.com"
+
     melos run rebuild --no-select
 
     flutter pub run change_app_package_name:main "$packageName"

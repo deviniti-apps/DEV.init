@@ -11,9 +11,11 @@ cd modules/remote/ && flutter packages pub run build_runner build --delete-confl
 echo 'Rebuilding in domain'
 cd modules/domain/ && flutter packages pub run build_runner build --delete-conflicting-outputs && cd ../../
 
+echo "Building env config"
+./flutter_build_env.sh $1
+
 echo 'Rebuilding in presentation'
 cd modules/presentation/ && flutter packages pub run build_runner build --delete-conflicting-outputs
-
 
 flutter gen-l10n --arb-dir=assets/l10n \
     --template-arb-file=translations_en.arb \

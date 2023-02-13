@@ -14,6 +14,7 @@ dependencies:
   cupertino_icons: 1.0.5
   domain:
     path: ../domain
+  envied: 0.3.0
   flutter:
     sdk: flutter
   flutter_bloc: 8.1.1
@@ -36,6 +37,7 @@ dev_dependencies:
   analyzer: 5.4.0
   bloc_test: 9.1.0
   build_runner: 2.3.3
+  envied_generator: 0.3.0
   flutter_test:
     sdk: flutter
   freezed: 2.3.2
