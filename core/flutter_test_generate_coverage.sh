@@ -5,11 +5,10 @@ OUTPUT=`lcov --remove coverage/lcov.info \
 "lib/l10n/translations.dart" \
 "lib/l10n/translations_en.dart" \
 "lib/router/**.dart" \
-"lib/models/user/*.g.dart" \
+"lib/models/*/*.g.dart" \
 "lib/models/*.g.dart" \
 "lib/model/*.g.dart" \
 "lib/components/snack_bar/**.dart" \
-"lib/models/error/**.dart" \
 "lib/components/auth/auth_navigation_hub.dart" \
 "lib/components/pagination/pagination_list.dart" \
 "lib/components/pagination/pagination_manager.dart" \

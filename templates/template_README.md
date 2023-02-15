@@ -268,11 +268,40 @@ All application code is in `presentation` module.
 
 # Testing
 
-Install [lcov](https://formulae.brew.sh/formula/lcov)
+There is a melos script called `test_coverage`. It uses a tool called `lcov`. You need to install it on your mac. You can do that by running:
 
-To run all tests use:
+```
+brew install lcov
+```
+once you are set with lcov, you can run the Melos script.
 
-- `melos run test-coverage`
+```
+melos run test_coverage
+```
+
+it will generate the test coverage for your package/packages and put the results in the `coverage` folder.
+
+### Visual Studio Code extensions
+
+The results of the Melos script are possible to connect with Visual Studio Code. You need to do the following:
+
+1. Install the `Flutter Coverage` extension
+2. Install the `Coverage Gutters` extension
+3. In VS Code change the `settings.json` (CMD + P -> settings.json) file and add:
+
+```
+ "flutter-coverage.coverageFileNames": [
+ "lcov_cleaned.info",
+ "lcov.info",
+ ],
+ "flutter-coverage.coverageFilePaths": [
+ "modules/[your-module]/coverage", // use * if you want to see all packages
+ ],
+```
+
+4. Press the `Watch` button - which is at the bottom of the VS Code bar. 
+
+5. See the coverage report separated by files and lines from the `Testing` tab in VS Code.
 
 # Templates & Mason
 
