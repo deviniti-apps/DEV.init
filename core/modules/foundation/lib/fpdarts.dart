@@ -9,8 +9,9 @@ extension $TaskEither<L, R> on TaskEither<L, R> {
 
 TaskEither<L, R> tryCatchE<L, R>(
   Future<Either<L, R>> Function() run,
-  L Function(Object error, StackTrace stackTrace) onError,
-) {
+  L Function(Object error, StackTrace stackTrace) onError, {
+  Future<void> Function()? onErrorRun,
+}) {
   return TaskEither<L, R>(
     () async {
       try {
@@ -18,6 +19,7 @@ TaskEither<L, R> tryCatchE<L, R>(
         // ignore: avoid_catches_without_on_clauses
       } catch (error, stackTrace) {
         logSevere('tryCatchE', error, stackTrace);
+        await onErrorRun?.call();
         return Left<L, R>(onError(error, stackTrace));
       }
     },
