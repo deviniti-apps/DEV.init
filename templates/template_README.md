@@ -270,16 +270,9 @@ All application code is in `presentation` module.
 
 Install [lcov](https://formulae.brew.sh/formula/lcov)
 
-To run all test use:
+To run all tests use:
 
-- `./flutter_test_all.sh`
-
-Test coverage report you can find under [coverage](tis_payments/coverage/]) directory.
-
-In order to include all files from a given module in test code coverage reports run
-`./flutter_real_test_coverage_all.sh` it will create `real_coverage_test.dart` file in test directory.
-
-This is the workaround for including all files in test code coverage.
+- `melos run test-coverage`
 
 # Templates & Mason
 

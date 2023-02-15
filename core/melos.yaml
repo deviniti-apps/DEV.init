@@ -47,3 +47,12 @@ scripts:
       melos exec -- \
         "fvm flutter clean"
     description: Run clean in all packages
+
+  test-coverage:
+    description: Run tests and setup coverage in a specific package.
+    run: melos exec -- bash ../../flutter_generate_coverage_imports.sh MELOS_PACKAGE_NAME && 
+         melos exec -- bash ../../flutter_test_generate_coverage.sh MELOS_PACKAGE_NAME &&
+         melos exec -- rm -rf ./test/real_coverage_test.dart
+    select-package:
+      dir-exists:
+        - "test/"
