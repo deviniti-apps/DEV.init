@@ -9,12 +9,31 @@ import 'package:foundation/foundation.dart';
 import 'package:presentation/application/application.dart';
 import 'package:presentation/application/theme.dart';
 import 'package:presentation/common/app_bloc_observer.dart';
+import 'package:presentation/environment/env.dart';
 import 'package:presentation/injector_container.dart' as di;
 import 'package:presentation/router/app_route_factory.dart';
 
 Future<void> runApplication() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await di.init(
+    apiUrl: Env.apiUrl,
+  );
+
+  _runAppLogger();
+
+  runZonedGuarded(
+    () => runApp(
+      Application(
+        appTheme: AppTheme(),
+        appRouteFactory: AppRouteFactory(),
+      ),
+    ),
+    (error, stackTrace) => logSevere('Exception caught in presentation layer', error, stackTrace),
+  );
+}
+
+void _runAppLogger() {
   Bloc.observer = AppBlocObserver();
 
   AppLogger.instance().configure(
@@ -37,17 +56,5 @@ Future<void> runApplication() async {
         // for example log to firebase
       }
     },
-  );
-
-  await di.init();
-
-  runZonedGuarded(
-    () => runApp(
-      Application(
-        appTheme: AppTheme(),
-        appRouteFactory: AppRouteFactory(),
-      ),
-    ),
-    (error, stackTrace) => logSevere('Exception caught in presentation layer', error, stackTrace),
   );
 }

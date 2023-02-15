@@ -10,11 +10,13 @@ import 'package:remote/remote_injector.dart';
 
 final injector = GetIt.instance;
 
-Future<void> init() async {
+Future<void> init({
+  required String apiUrl,
+}) async {
   await injector.registerDomain();
 
   injector
-    ..registerRemote(baseUrl: 'https://jsonplaceholder.typicode.com')
+    ..registerRemote(baseUrl: apiUrl)
     ..registerLazySingleton<AuthBloc>(
       () => AuthBloc(
         unAuthStreamProvider: injector.get(),
