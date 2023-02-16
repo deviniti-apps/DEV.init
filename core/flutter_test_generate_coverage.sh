@@ -7,6 +7,7 @@ OUTPUT=`lcov --remove coverage/lcov.info \
 "lib/router/**.dart" \
 "lib/models/*/*.g.dart" \
 "lib/models/*.g.dart" \
+"lib/model/*/*.g.dart" \
 "lib/model/*.g.dart" \
 "lib/components/snack_bar/**.dart" \
 "lib/components/auth/auth_navigation_hub.dart" \

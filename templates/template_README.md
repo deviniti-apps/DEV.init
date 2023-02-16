@@ -137,7 +137,7 @@ Optional commands:
 
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS=VALUE #For example development-service-account.json
-export DEVELOPMENT_IOS_FIREBASE_APP_ID=VALUE #
+export DEVELOPMENT_IOS_FIREBASE_APP_ID=VALUE
 export STAGING_IOS_FIREBASE_APP_ID=VALUE
 export PRODUCTION_IOS_FIREBASE_APP_ID=VALUE
 ```
@@ -289,15 +289,19 @@ The results of the Melos script are possible to connect with Visual Studio Code.
 2. Install the `Coverage Gutters` extension
 3. In VS Code change the `settings.json` (CMD + P -> settings.json) file and add:
 
+``` bash
+"flutter-coverage.coverageFileNames": [
+    "lcov_cleaned.info",
+],
+"flutter-coverage.coverageFilePaths": [
+    "modules/[your-module]/coverage"
+    # For example
+    # "modules/domain/coverage",
+    # "modules/remote/coverage",
+    # "modules/presentation/coverage",
+],
 ```
- "flutter-coverage.coverageFileNames": [
- "lcov_cleaned.info",
- "lcov.info",
- ],
- "flutter-coverage.coverageFilePaths": [
- "modules/[your-module]/coverage", // use * if you want to see all packages
- ],
-```
+
 
 4. Press the `Watch` button - which is at the bottom of the VS Code bar. 
 
