@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:domain/auth_token_provider.dart';
 import 'package:domain/data_source_action/get_user_remote_source_action.dart';
 import 'package:domain/model/user.dart';
-import 'package:domain/unauth_stream_provider.dart';
 import 'package:flutter_pretty_dio_logger/flutter_pretty_dio_logger.dart';
 import 'package:get_it/get_it.dart';
 import 'package:remote/api/user_rest_api.dart';
@@ -14,7 +13,6 @@ import 'package:remote/mapper/mapper.dart';
 import 'package:remote/mapper/user_remote_to_user_mapper.dart';
 import 'package:remote/models/user/user_remote_model.dart';
 import 'package:remote/other/error/error_converter.dart';
-import 'package:remote/other/unauth_stream_provider_impl.dart';
 
 extension RemoteInjector on GetIt {
   void registerRemote({
@@ -33,7 +31,6 @@ extension RemoteInjector on GetIt {
           queryParameters: true,
         ),
       )
-      ..registerSingleton<UnAuthStreamProvider>(UnAuthStreamProviderImpl())
       ..registerSingleton(const ErrorConverter())
       ..registerLazySingleton<Dio>(
         () => DioProvider.create(

@@ -1,43 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/app.dart';
-import 'package:presentation/common/state_type.dart';
-import 'package:presentation/screens/dashboard/bloc/dashboard_bloc.dart';
-import 'package:presentation/widgets/empty_page_widget.dart';
-import 'package:presentation/widgets/error_page_widget.dart';
-import 'package:presentation/widgets/loading_page_widget.dart';
+import 'package:go_router/go_router.dart';
+import 'package:presentation/screens/dashboard_home/dashboard_home_screen.dart';
+import 'package:presentation/screens/dashboard_profile/dashboard_profile_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
-  static const String routeName = '/dashboard';
+  const DashboardScreen({
+    required this.child,
+    super.key,
+  });
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
-      body: SafeArea(
-        top: false,
-        child: BlocBuilder<DashboardBloc, DashboardState>(
-          builder: (context, state) => state.type.map(
-            loading: () => const LoadingPage(),
-            loaded: () => Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: Insets.medium,
-                horizontal: Insets.large,
-              ),
-              child: Column(
-                children: [
-                  Text(state.user?.name ?? ''),
-                  Text(state.user?.email ?? ''),
-                ],
-              ),
-            ),
-            empty: () => const EmptyPage(),
-            error: () => const ErrorPage(),
+      body: child,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _calculateSelectedIndex(context),
+        onTap: (index) => _onItemTapped(index, context),
       ),
     );
+  }
+
+  int _calculateSelectedIndex(BuildContext context) {
+    final location = GoRouterState.of(context).location;
+    if (location.startsWith(DashboardHomeScreen.routeName)) {
+      return 0;
+    } else if (location.startsWith(DashboardProfileScreen.routeName)) {
+      return 1;
+    }
+    return 0;
+  }
+
+  void _onItemTapped(int index, BuildContext context) {
+    switch (index) {
+      case 0:
+        context.go(DashboardHomeScreen.routeName);
+        break;
+      case 1:
+        context.go(DashboardProfileScreen.routeName);
+        break;
+    }
   }
 }

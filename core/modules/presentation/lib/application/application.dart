@@ -16,16 +16,22 @@ class Application extends StatelessWidget {
     required this.appRouteFactory,
   });
 
-  final navigatorKey = GlobalKey<NavigatorState>();
   final AppTheme appTheme;
   final AppRouteFactory appRouteFactory;
+
+  final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
+  late final _routerConfig = appRouteFactory.router(
+    rootNavigatorKey: _rootNavigatorKey,
+    shellNavigatorKey: _shellNavigatorKey,
+  );
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => injector<AuthBloc>()..add(const AuthEvent.started()),
+          create: (context) => injector<AuthBloc>(),
         ),
         BlocProvider(
           create: (context) => SnackBarBloc(),
@@ -35,16 +41,15 @@ class Application extends StatelessWidget {
         light: appTheme.theme(LightPalette()),
         dark: appTheme.theme(DarkPalette()),
         initial: AdaptiveThemeMode.system,
-        builder: (theme, darkTheme) => MaterialApp(
+        builder: (theme, darkTheme) => MaterialApp.router(
           onGenerateTitle: (context) => Translations.of(context).appTitle,
           localizationsDelegates: Translations.localizationsDelegates,
           supportedLocales: Translations.supportedLocales,
           theme: theme,
           darkTheme: darkTheme,
-          onGenerateRoute: appRouteFactory.route,
-          navigatorKey: navigatorKey,
+          routerConfig: _routerConfig,
           builder: (context, child) => AuthNavigationHub(
-            navigatorKey: navigatorKey,
+            rootNavigatorKey: _rootNavigatorKey,
             child: SnackBarContainer(
               child: child,
             ),

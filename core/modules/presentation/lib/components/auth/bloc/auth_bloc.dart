@@ -1,8 +1,10 @@
 import 'dart:async';
 
-import 'package:domain/unauth_stream_provider.dart';
+import 'package:domain/model/user.dart';
+import 'package:domain/user_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presentation/common/state_type.dart';
 
 part 'auth_bloc.freezed.dart';
 
@@ -12,36 +14,45 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({
-    required UnAuthStreamProvider unAuthStreamProvider,
-  })  : _unAuthStreamProvider = unAuthStreamProvider,
+    required UserProvider userProvider,
+  })  : _userProvider = userProvider,
         super(AuthState.initial()) {
-    on<AuthEventInitiated>(_started);
-    on<AuthEventAuthenticated>(_onAuthEventAuthenticated);
-    on<AuthEventUnAuthenticated>(_onAuthEventUnAuthenticated);
+    on<_OnInitiated>(_onInitiated);
+    on<_OnUserUpdated>(_onUserUpdated);
+    on<_OnAuthCheckRequested>(_onAuthCheckRequested);
+    on<_OnSignedOut>(_onSignedOut);
   }
 
-  final UnAuthStreamProvider _unAuthStreamProvider;
+  final UserProvider _userProvider;
 
-  StreamSubscription? _unAuthEventsSubscription;
+  StreamSubscription<User?>? _userStreamSubscription;
 
-  Future<void> _started(AuthEventInitiated event, Emitter<AuthState> emit) async {
-    await _onUnAuthEvents(emit);
-  }
-
-  Future<void> _onAuthEventAuthenticated(AuthEventAuthenticated event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isAuthenticated: true));
-  }
-
-  Future<void> _onAuthEventUnAuthenticated(AuthEventUnAuthenticated event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isAuthenticated: false));
-  }
-
-  Future<void> _onUnAuthEvents(Emitter<AuthState> emit) async {
-    await _unAuthEventsSubscription?.cancel();
-    _unAuthEventsSubscription = _unAuthStreamProvider.stream.listen(
-      (_) {
-        add(const AuthEvent.unauthenticated());
-      },
+  Future<void> _onInitiated(_OnInitiated event, Emitter<AuthState> emit) async {
+    await _userStreamSubscription?.cancel();
+    _userStreamSubscription = _userProvider.userStream.listen(
+      (customerProfile) => add(AuthEvent.onUserUpdated(customerProfile)),
+      onError: (_) => add(const AuthEvent.onUserUpdated(null)),
     );
+    await _userProvider.restoreUser();
+  }
+
+  Future<void> _onUserUpdated(_OnUserUpdated event, Emitter<AuthState> emit) async {
+    emit(
+      state.copyWith(
+        userStateType: StateType.loaded,
+        user: event.user,
+      ),
+    );
+  }
+
+  Future<void> _onAuthCheckRequested(_OnAuthCheckRequested event, Emitter<AuthState> emit) async =>
+      _userProvider.restoreUser();
+
+  Future<void> _onSignedOut(_OnSignedOut event, Emitter<AuthState> emit) async => _userProvider.deleteUser();
+
+  @override
+  Future<void> close() async {
+    await _userStreamSubscription?.cancel();
+    return super.close();
   }
 }

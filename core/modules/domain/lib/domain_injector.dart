@@ -5,7 +5,11 @@ import 'package:domain/model/user.dart';
 import 'package:domain/store/adapter/secure_storage_adapter.dart';
 import 'package:domain/store/adapter/shared_preferences_adapter.dart';
 import 'package:domain/store/single_value_store.dart';
+import 'package:domain/usecase/delete_local_user_usecase.dart';
+import 'package:domain/usecase/get_local_user_usecase.dart';
 import 'package:domain/usecase/get_user_usecase.dart';
+import 'package:domain/usecase/update_local_user_usecase.dart';
+import 'package:domain/user_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -32,6 +36,13 @@ extension DomainInjector on GetIt {
         () => AuthTokenProviderImpl(
           userSingleValueStore: get(),
         ),
+      )
+      ..registerLazySingleton<UserProvider>(
+        () => UserProviderImpl(
+          getLocalUserUsecase: get(),
+          deleteLocalUserUsecase: get(),
+          updateLocalUserUsecase: get(),
+        ),
       );
   }
 
@@ -40,6 +51,21 @@ extension DomainInjector on GetIt {
       ..registerFactory<GetUserUsecase>(
         () => GetUserUsecase(
           getUserRemoteSourceAction: get(),
+        ),
+      )
+      ..registerFactory<GetLocalUserUsecase>(
+        () => GetLocalUserUsecase(
+          userSingleValueStore: get(),
+        ),
+      )
+      ..registerFactory<DeleteLocalUserUsecase>(
+        () => DeleteLocalUserUsecase(
+          userSingleValueStore: get(),
+        ),
+      )
+      ..registerFactory<UpdateLocalUserUsecase>(
+        () => UpdateLocalUserUsecase(
+          userSingleValueStore: get(),
         ),
       );
   }

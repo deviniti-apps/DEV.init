@@ -21,6 +21,7 @@ dependencies:
   json_serializable: 6.6.0
   project_linter:
     path: ../project_linter
+  rxdart: 0.27.7
   shared_preferences: 2.0.17
 
 dev_dependencies:
