@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/application/theme.dart';
+import 'package:presentation/application/app.dart';
 
 class EmptyPage extends StatelessWidget {
   const EmptyPage({

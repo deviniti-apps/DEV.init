@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/dimen.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/common/state_type.dart';
 import 'package:presentation/screens/dashboard/bloc/dashboard_bloc.dart';
 import 'package:presentation/widgets/empty_page_widget.dart';

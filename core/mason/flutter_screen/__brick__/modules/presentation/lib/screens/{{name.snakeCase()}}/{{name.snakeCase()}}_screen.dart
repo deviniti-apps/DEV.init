@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';{{#bloc}}
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/dimen.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/common/state_type.dart';
 import 'package:presentation/screens/{{name.snakeCase()}}/bloc/{{name.snakeCase()}}_bloc.dart';
 import 'package:presentation/widgets/empty_page_widget.dart';

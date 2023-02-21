@@ -30,7 +30,7 @@ extension DomainInjector on GetIt {
       )
       ..registerLazySingleton<AuthTokenProvider>(
         () => AuthTokenProviderImpl(
-          userStore: get(),
+          userSingleValueStore: get(),
         ),
       );
   }

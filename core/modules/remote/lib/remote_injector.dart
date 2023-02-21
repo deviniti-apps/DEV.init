@@ -35,7 +35,7 @@ extension RemoteInjector on GetIt {
       )
       ..registerSingleton<UnAuthStreamProvider>(UnAuthStreamProviderImpl())
       ..registerSingleton(const ErrorConverter())
-      ..registerFactory<Dio>(
+      ..registerLazySingleton<Dio>(
         () => DioProvider.create(
           baseUrl: baseUrl,
           prettyDioLogger: get(),
@@ -44,7 +44,7 @@ extension RemoteInjector on GetIt {
         ),
         instanceName: DioProvider.dioAuth,
       )
-      ..registerFactory<Dio>(
+      ..registerLazySingleton<Dio>(
         () => DioProvider.create(
           baseUrl: baseUrl,
           prettyDioLogger: get(),

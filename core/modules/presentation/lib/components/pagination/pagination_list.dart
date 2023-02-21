@@ -1,7 +1,7 @@
 import 'package:domain/model/pageable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/dimen.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/components/pagination/pagination.dart';
 
 typedef IndexedPageWidgetBuilder<T extends Pageable> = Widget Function(BuildContext context, int index, T element);

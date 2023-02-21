@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/dimen.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/components/auth/bloc/auth_bloc.dart';
-import 'package:presentation/screens/dashboard/dashboard_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = '/';

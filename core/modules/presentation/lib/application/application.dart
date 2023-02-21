@@ -1,7 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:presentation/application/theme.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/components/auth/auth_navigation_hub.dart';
 import 'package:presentation/components/auth/bloc/auth_bloc.dart';
 import 'package:presentation/components/snack_bar/bloc/snack_bar_bloc.dart';

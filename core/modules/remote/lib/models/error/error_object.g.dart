@@ -6,7 +6,8 @@ part of 'error_object.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ErrorObject _$ErrorObjectFromJson(Map<String, dynamic> json) => ErrorObject(
+_$_ErrorObject _$$_ErrorObjectFromJson(Map<String, dynamic> json) =>
+    _$_ErrorObject(
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
@@ -15,7 +16,7 @@ ErrorObject _$ErrorObjectFromJson(Map<String, dynamic> json) => ErrorObject(
       traceId: json['traceId'] as String?,
     );
 
-Map<String, dynamic> _$ErrorObjectToJson(ErrorObject instance) =>
+Map<String, dynamic> _$$_ErrorObjectToJson(_$_ErrorObject instance) =>
     <String, dynamic>{
       'timestamp': instance.timestamp?.toIso8601String(),
       'error': instance.error,

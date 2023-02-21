@@ -55,6 +55,24 @@ void main() {
           );
         },
       );
+
+      test(
+        'Should return fatal error detail when backend error occurred',
+        () async {
+          when(() => mockGetUserRemoteSourceAction.execute()).thenReturn(
+            TaskEither<ErrorDetail, User>.left(
+              const ErrorDetail.backend(errorCode: 'api_error', message: 'api_message'),
+            ),
+          );
+
+          final result = await getUserUsecase.execute().run();
+
+          result.match(
+            (it) => expect(it, GetUserFailure.fatal),
+            (it) => throw it,
+          );
+        },
+      );
     },
   );
 }

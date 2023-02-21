@@ -1,9 +1,8 @@
 flutter test --reporter expanded --coverage
 OUTPUT=`lcov --remove coverage/lcov.info \
+"lib/dio_provider.dart" \
 "lib/api/**.dart" \
-"lib/l10n/l10n_extensions.dart" \
-"lib/l10n/translations.dart" \
-"lib/l10n/translations_en.dart" \
+"lib/l10n/*.dart" \
 "lib/router/**.dart" \
 "lib/models/*/*.g.dart" \
 "lib/models/*.g.dart" \

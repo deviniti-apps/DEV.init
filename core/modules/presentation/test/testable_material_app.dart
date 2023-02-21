@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/application/theme.dart';
+import 'package:presentation/application/app.dart';
 import 'package:presentation/l10n/translations.dart';
 
 class TestableMaterialApp extends StatelessWidget {

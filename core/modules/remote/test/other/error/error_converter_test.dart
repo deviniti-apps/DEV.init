@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:domain/model/error_detail.dart';
 import 'package:remote/other/error/error_converter.dart';
 import 'package:test/test.dart';
@@ -88,6 +89,37 @@ void main() {
       const converter = ErrorConverter();
 
       final result = converter.convert(10);
+
+      expect(
+        result,
+        const ErrorDetail.fatal(),
+      );
+    },
+  );
+
+  test(
+    'Given not DioError type error and stack trace then function handleRemoteError returns ErrorDetail.fatal',
+    () {
+      const converter = ErrorConverter();
+      final stackTrace = StackTrace.fromString('stackTraceString');
+
+      final result = converter.handleRemoteError(10, stackTrace);
+
+      expect(
+        result,
+        ErrorDetail.fatal(throwable: 10, stackTrace: stackTrace),
+      );
+    },
+  );
+
+  test(
+    'Given DioError type error and stack trace then function handleRemoteError returns ErrorDetail.fatal',
+    () {
+      const converter = ErrorConverter();
+      final dioError = DioError(requestOptions: RequestOptions(path: 'path'), type: DioErrorType.response);
+      final stackTrace = StackTrace.fromString('stackTraceString');
+
+      final result = converter.handleRemoteError(dioError, stackTrace);
 
       expect(
         result,
