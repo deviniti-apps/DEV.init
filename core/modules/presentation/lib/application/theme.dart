@@ -178,6 +178,7 @@ class AppTheme {
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
       ),
+      useMaterial3: true,
     );
     return theme.copyWith(
       elevatedButtonTheme: ElevatedButtonThemeData(
