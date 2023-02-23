@@ -5,9 +5,9 @@ project_type: flutter
 workflows:
   build-test-deploy-development:
     steps:
-      - activate-ssh-key@4:
+    - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - script@1:
+    - script@1:
         title: SSH RSA WORKAROUND
         inputs:
         - content: |-
@@ -18,8 +18,8 @@ workflows:
             echo "Host *" >> "$HOME/.ssh/config"
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
-      - git-clone@6: { }
-      - script@1:
+    - git-clone@8: { }
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -32,10 +32,10 @@ workflows:
                 echo "Copy iOS Service Account"
                 echo "$DEVELOPMENT_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/development-service-account.json"
           title: copy files
-      - flutter-installer@0:
+    - flutter-installer@0:
           inputs:
             - version: 3.7.1
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -44,7 +44,7 @@ workflows:
                 chmod +x ci_prepare_all.sh
                 ./ci_prepare_all.sh $DEVELOPMENT_REST_API_URL
           title: flutter prepare all
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -55,7 +55,7 @@ workflows:
                 flutter build ios --debug --flavor development --no-codesign --build-number=$BITRISE_BUILD_NUMBER
                 flutter build apk --debug --flavor development --build-number=$BITRISE_BUILD_NUMBER
           title: flutter build iOS & Android
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -68,7 +68,7 @@ workflows:
                 bundle exec fastlane build_fad_ios_alpha
                 bundle exec fastlane deploy_fad_ios_alpha
           title: fastlane build deploy Alpha iOS
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -82,9 +82,9 @@ workflows:
           title: fastlane deploy Alpha Android
   build-test-deploy-staging:
     steps:
-      - activate-ssh-key@4:
+    - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - script@1:
+    - script@1:
         title: SSH RSA WORKAROUND
         inputs:
         - content: |-
@@ -95,8 +95,8 @@ workflows:
             echo "Host *" >> "$HOME/.ssh/config"
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
-      - git-clone@6: { }
-      - script@1:
+    - git-clone@8: { }
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -109,10 +109,10 @@ workflows:
                 echo "Copy iOS Service Account"
                 echo "$STAGING_SERVICE_ACCOUNT" > "$BITRISE_SOURCE_DIR/_RAW_NAME_/ios/staging-service-account.json"
           title: copy files
-      - flutter-installer@0:
+    - flutter-installer@0:
           inputs:
             - version: 3.7.1
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -121,7 +121,7 @@ workflows:
                 chmod +x ci_prepare_all.sh
                 ./ci_prepare_all.sh $STAGING_REST_API_URL
           title: flutter prepare all
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -130,7 +130,7 @@ workflows:
                 flutter build ios --profile --flavor staging --no-codesign --build-number=$BITRISE_BUILD_NUMBER
                 flutter build apk --profile --flavor staging --build-number=$BITRISE_BUILD_NUMBER
           title: flutter build iOS & Android
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -141,7 +141,7 @@ workflows:
                 bundle exec fastlane build_fad_ios_beta
                 bundle exec fastlane deploy_fad_ios_beta
           title: fastlane build deploy Beta iOS
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -153,9 +153,9 @@ workflows:
           title: fastlane deploy Beta Android
   build-test-deploy-production:
     steps:
-      - activate-ssh-key@4:
+    - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - script@1:
+    - script@1:
         title: SSH RSA WORKAROUND
         inputs:
         - content: |-
@@ -166,8 +166,8 @@ workflows:
             echo "Host *" >> "$HOME/.ssh/config"
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
-      - git-clone@6: { }
-      - script@1:
+    - git-clone@8: { }
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -183,10 +183,10 @@ workflows:
                 echo "Copy jks file"
                 echo "$UPLOAD_KEY_CONTENT" | base64 --decode >> "$BITRISE_SOURCE_DIR/_RAW_NAME_/android/app/upload-key.jks"
           title: copy files
-      - flutter-installer@0:
+    - flutter-installer@0:
           inputs:
             - version: 3.7.1
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -195,7 +195,7 @@ workflows:
                 chmod +x ci_prepare_all.sh
                 ./ci_prepare_all.sh $PRODUCTION_REST_API_URL
           title: flutter prepare all
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -204,7 +204,7 @@ workflows:
                 flutter build ios --release --flavor production --no-codesign --build-number=$BITRISE_BUILD_NUMBER
                 flutter build appbundle --release --flavor production --build-number=$BITRISE_BUILD_NUMBER
           title: flutter build iOS & Android
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -214,7 +214,7 @@ workflows:
                 bundle exec fastlane build_ios_production
                 bundle exec fastlane deploy_ios_production
           title: fastlane build deploy firebase Production iOS
-      - script@1:
+    - script@1:
           inputs:
             - content: |-
                 #!/usr/bin/env bash
@@ -227,7 +227,7 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
-      - git-clone@6: { }
+      - git-clone@8: { }
       - flutter-installer@0:
           inputs:
             - version: 2.10.4
