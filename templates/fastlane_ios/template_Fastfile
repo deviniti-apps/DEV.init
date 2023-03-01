@@ -112,7 +112,7 @@ platform :ios do
       keychain_name: TEMP_KEYCHAIN_NAME_DEFAULT,
       keychain_password: TEMP_KEYCHAIN_PASSWORD_DEFAULT,
       force_for_new_devices: true,
-      type: 'adhoc'
+      type: 'adhoc',
       app_identifier: ["_PACKAGE_NAME_.beta"]
     )
 
