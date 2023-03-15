@@ -227,10 +227,21 @@ workflows:
     steps:
       - activate-ssh-key@4:
           run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+      - script@1:
+        title: SSH RSA WORKAROUND
+        inputs:
+        - content: |-
+            #!/usr/bin/env bash
+            set -ex
+
+            echo "Workaround with Ventura SSH issue described here: https://superuser.com/a/1749370"
+            echo "Host *" >> "$HOME/.ssh/config"
+            echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
+            echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
       - git-clone@8: { }
       - flutter-installer@0:
           inputs:
-            - version: 2.10.4
+            - version: 3.7.1
       - script@1:
           inputs:
             - content: |-
@@ -238,7 +249,7 @@ workflows:
                 set -ex
                 cd _RAW_NAME_
                 chmod +x ci_prepare_all.sh
-                ./ci_prepare_all.sh
+                ./ci_prepare_all.sh $DEVELOPMENT_REST_API_URL
           title: flutter prepare all
       - script@1:
           inputs:
