@@ -21,7 +21,7 @@ scripts:
   generate_code:
     run: |
       melos exec -- \
-        "fvm flutter packages pub run build_runner build --delete-conflicting-outputs"
+        "fvm flutter packages pub run build_runner clean && fvm flutter packages pub run build_runner build --delete-conflicting-outputs"
     description: Generate all @freezed @immutable and @json_annotation code by running build_runner in selected (or all) packages
     select-package:
       scope:

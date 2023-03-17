@@ -94,7 +94,10 @@ abstract class Env {
 
 `./flutter_build_env.sh`
 ```
-echo "API_URL=$1\nYOUR_NEW_ENV=$2" > modules/presentation/lib/environment/.env
+cat <<EOT > modules/presentation/lib/environment/.env
+API_URL=$1
+YOUR_NEW_ENV=$2
+EOT
 ```
 
 then:

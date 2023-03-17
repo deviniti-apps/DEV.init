@@ -258,6 +258,7 @@ workflows:
                 set -ex
                 cd _RAW_NAME_
                 chmod +x ci_test_all.sh
+                ./ci_test_all.sh
           title: flutter test all
 trigger_map:
 - push_branch: develop
