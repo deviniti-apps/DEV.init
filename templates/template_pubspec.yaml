@@ -18,6 +18,7 @@ dependencies:
 
 dev_dependencies:
   change_app_package_name: 1.1.0
+  melos: 3.0.0
 
 flutter:
   uses-material-design: true
