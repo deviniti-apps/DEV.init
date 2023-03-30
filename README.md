@@ -1,6 +1,6 @@
 <p align="center">
     <img src="./readme/deviniti-logo.webp" width="100" height="100"/> <br /><br />
-    <img src="./readme/devinit-logo.png" />
+    <img src="./readme/devinit-logo.png" height="100"/>
     <br /><br />
     <span>This is the tool for project creation.<br />
 </p>
