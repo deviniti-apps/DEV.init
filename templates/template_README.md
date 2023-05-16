@@ -16,7 +16,7 @@ You can visit project [site](https://example.com/)
 - Android ([since API 23](https://source.android.com/docs/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases))
 - [Android SDK](https://developer.android.com/studio/index.html)
 - Latest Android SDK Tools and build tools.
-- [iOS 12](https://developer.apple.com/documentation/ios-ipados-release-notes)
+- [iOS 13](https://developer.apple.com/documentation/ios-ipados-release-notes)
 - [Xcode](https://developer.apple.com/xcode/)
 - JDK 1.8
 
@@ -26,7 +26,7 @@ You can visit project [site](https://example.com/)
 
 We use [FVM](https://fvm.app/) in this project, make sure you have it installed.
 
-Run command `fvm use {flutterVersion}` (for example `fvm use 3.7.1`) in root project directory.
+Run command `fvm use {flutterVersion}` (for example `fvm use 3.10.0`) in root project directory.
 
 ### Second step
 

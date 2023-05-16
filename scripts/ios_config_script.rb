@@ -10,11 +10,11 @@ options = { }
 
 
 OptionParser.new do |option|
-    option.on('-cn', '--config-name', 'Symbol could be debug or relase') do |value|
+    option.on('-cn', '--config-name', 'Symbol could be debug or release') do |value|
         options[:config_name] = value
     end
 
-    option.on('-as', '--app-suffix', 'Symbol could be debug or relase') do |value|
+    option.on('-as', '--app-suffix', 'Symbol could be debug or release') do |value|
         options[:app_suffix] = value
     end
 
@@ -32,7 +32,7 @@ OptionParser.new do |option|
 end.parse!
 
 
-def create_configurations(config_name, symbol_name, project, base_config_name, bundle_suffix, app_name, bunde_id)
+def create_configurations(config_name, symbol_name, project, base_config_name, bundle_suffix, app_name, bundle_id)
     added_configuration = project.add_build_configuration(config_name, symbol_name)
     project_conf = project.native_targets[0].add_build_configuration(config_name, symbol_name.to_s)
 
@@ -55,7 +55,7 @@ def create_configurations(config_name, symbol_name, project, base_config_name, b
         end
     end
 
-    project_conf.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = bunde_id + bundle_suffix
+    project_conf.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = bundle_id + bundle_suffix
     project_conf.build_settings['APP_DISPLAY_NAME'] = app_name
     project.save()
 end
