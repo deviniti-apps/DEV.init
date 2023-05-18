@@ -26,7 +26,7 @@ You can visit project [site](https://example.com/)
 
 We use [FVM](https://fvm.app/) in this project, make sure you have it installed.
 
-Run command `fvm use {flutterVersion}` (for example `fvm use 3.10.0`) in root project directory.
+Run command `fvm use {flutterVersion}` (for example `fvm use 3.10.1`) in root project directory.
 
 ### Second step
 
