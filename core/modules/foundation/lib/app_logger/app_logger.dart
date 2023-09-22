@@ -61,7 +61,7 @@ void logShout(Object? message, [Object? error, StackTrace? stackTrace]) =>
 
 class AppLogger {
   static const int levelAll = 0;
-  static const int levelSevere = 8;
+  static const int levelSevere = 7;
 
   static final AppLogger _instance = AppLogger._internal();
 
