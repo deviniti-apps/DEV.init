@@ -133,7 +133,6 @@ class AppTheme {
     final theme = ThemeData(
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch: generateMaterialColor(palette.primaryColor),
-        primaryColorDark: palette.primaryDarkColor,
         accentColor: palette.accentColor,
         cardColor: palette.cardColor,
         backgroundColor: palette.backgroundColor,
