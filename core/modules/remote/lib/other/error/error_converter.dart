@@ -31,7 +31,7 @@ class ErrorConverter {
   }
 
   ErrorDetail handleRemoteError(Object error, StackTrace stackTrace) {
-    if (error is DioError && error.type == DioErrorType.response) {
+    if (error is DioError && error.type == DioErrorType.badResponse) {
       return convert(error) ?? const ErrorDetail.fatal();
     }
     return ErrorDetail.fatal(throwable: error, stackTrace: stackTrace);

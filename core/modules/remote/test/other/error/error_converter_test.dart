@@ -116,7 +116,7 @@ void main() {
     'Given DioError type error and stack trace then function handleRemoteError returns ErrorDetail.fatal',
     () {
       const converter = ErrorConverter();
-      final dioError = DioError(requestOptions: RequestOptions(path: 'path'), type: DioErrorType.response);
+      final dioError = DioError(requestOptions: RequestOptions(path: 'path'), type: DioErrorType.badResponse);
       final stackTrace = StackTrace.fromString('stackTraceString');
 
       final result = converter.handleRemoteError(dioError, stackTrace);
