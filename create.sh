@@ -31,6 +31,7 @@ if flutter create -t app --org "$packageName" -a kotlin -i swift "$appName"; the
     sed "s/_RAW_NAME_/$appName/g" templates/build1.gradle > templates/build.gradle
     rm -rf templates/build1.gradle
     mv templates/build.gradle "$appName"/"$appName"/android/app
+    cp templates/template_root_build.gradle "$appName"/"$appName"/android/build.gradle
 
     sed "s/_RAW_NAME_/$appName/g" templates/template_README.md > templates/README.md
     mv templates/README.md "$appName"/

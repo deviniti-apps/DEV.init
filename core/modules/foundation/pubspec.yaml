@@ -4,13 +4,13 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: ">=3.2.6 <4.0.0"
-  flutter: "3.16.9"
+  sdk: ">=3.5.4 <4.0.0"
+  flutter: "3.24.5"
 
 dependencies:
   flutter:
     sdk: flutter
-  fpdart: 1.1.0
+  fpdart: 1.1.1
   logging: 1.1.0
   project_linter:
     path: ../project_linter
@@ -18,6 +18,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  platform: 3.1.4
+  platform: 3.1.6
 
 flutter:
