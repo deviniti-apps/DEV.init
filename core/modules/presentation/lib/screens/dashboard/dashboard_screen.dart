@@ -33,7 +33,7 @@ class DashboardScreen extends StatelessWidget {
   }
 
   int _calculateSelectedIndex(BuildContext context) {
-    final location = GoRouterState.of(context).location;
+    final location = GoRouterState.of(context).uri.toString();
     if (location.startsWith(DashboardHomeScreen.routeName)) {
       return 0;
     } else if (location.startsWith(DashboardProfileScreen.routeName)) {

@@ -19,6 +19,9 @@ workflows:
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
     - git-clone@8: { }
+    - set-java-version@1:
+        inputs:
+          - set_java_version: '17'
     - script@1:
           inputs:
             - content: |-
@@ -34,7 +37,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.16.9
+            - version: 3.24.5
     - script@1:
           inputs:
             - content: |-
@@ -96,6 +99,9 @@ workflows:
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
     - git-clone@8: { }
+    - set-java-version@1:
+        inputs:
+          - set_java_version: '17'
     - script@1:
           inputs:
             - content: |-
@@ -111,7 +117,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.16.9
+            - version: 3.24.5
     - script@1:
           inputs:
             - content: |-
@@ -167,6 +173,9 @@ workflows:
             echo "HostkeyAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
             echo "PubkeyAcceptedAlgorithms +ssh-rsa" >> "$HOME/.ssh/config"
     - git-clone@8: { }
+    - set-java-version@1:
+        inputs:
+          - set_java_version: '17'
     - script@1:
           inputs:
             - content: |-
@@ -185,7 +194,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.16.9
+            - version: 3.24.5
     - script@1:
           inputs:
             - content: |-
@@ -241,7 +250,7 @@ workflows:
       - git-clone@8: { }
       - flutter-installer@0:
           inputs:
-            - version: 3.16.9
+            - version: 3.24.5
       - script@1:
           inputs:
             - content: |-
@@ -270,4 +279,5 @@ trigger_map:
   workflow: build-test-deploy-development
 meta:
   bitrise.io:
-    stack: osx-xcode-14.2.x-ventura
+    stack: osx-xcode-16.2.x-edge
+    machine_type_id: g2-m1.4core
