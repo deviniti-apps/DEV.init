@@ -5,7 +5,7 @@ part 'storable_model.freezed.dart';
 part 'storable_model.g.dart';
 
 @freezed
-class StorableModel with _$StorableModel implements Storable {
+abstract class StorableModel with _$StorableModel implements Storable {
   const factory StorableModel({
     required int id,
   }) = _StorableModel;

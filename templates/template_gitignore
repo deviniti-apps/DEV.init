@@ -409,6 +409,7 @@ lib/environment_config.dart
 .fvm/flutter_sdk
 /.bitrise.secrets.yml
 /android/gradle.deps
+/android/app/.cxx
 
 *.info
 

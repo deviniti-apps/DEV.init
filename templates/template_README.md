@@ -13,7 +13,7 @@ You can visit project [site](https://example.com/)
 - Dart SDK included in Flutter
 - [Melos](https://pub.dev/packages/melos)
 - [Mason](https://pub.dev/packages/mason)
-- Android ([since API 23](https://source.android.com/docs/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases))
+- Android ([since API 26](https://source.android.com/docs/setup/start/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases))
 - [Android SDK](https://developer.android.com/studio/index.html)
 - Latest Android SDK Tools and build tools.
 - [iOS 13](https://developer.apple.com/documentation/ios-ipados-release-notes)
@@ -26,7 +26,7 @@ You can visit project [site](https://example.com/)
 
 We use [FVM](https://fvm.app/) in this project, make sure you have it installed.
 
-Run command `fvm use {flutterVersion}` (for example `fvm use 3.24.5`) in root project directory.
+Run command `fvm use {flutterVersion}` (for example `fvm use 3.29.1`) in root project directory.
 
 ### Second step
 

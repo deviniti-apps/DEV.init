@@ -27,11 +27,17 @@ if flutter create -t app --org "$packageName" -a kotlin -i swift "$appName"; the
 
     echo 'USING TEMPLATES'
 
-    sed "s/_PACKAGE_NAME_/$packageName.$appName/g" templates/template_build.gradle > templates/build1.gradle
-    sed "s/_RAW_NAME_/$appName/g" templates/build1.gradle > templates/build.gradle
-    rm -rf templates/build1.gradle
-    mv templates/build.gradle "$appName"/"$appName"/android/app
+    rm -rf "$appName"/"$appName"/android/app/build.gradle.kts
+    rm -rf "$appName"/"$appName"/android/app/build.gradle
+    cp templates/template_build.gradle "$appName"/"$appName"/android/app/build.gradle
+
+    rm -rf "$appName"/"$appName"/android/build.gradle.kts
+    rm -rf "$appName"/"$appName"/android/build.gradle
     cp templates/template_root_build.gradle "$appName"/"$appName"/android/build.gradle
+
+    rm -rf "$appName"/"$appName"/android/settings.gradle
+    rm -rf "$appName"/"$appName"/android/settings.gradle.kts
+    cp templates/template_settings.gradle "$appName"/"$appName"/android/settings.gradle
 
     sed "s/_RAW_NAME_/$appName/g" templates/template_README.md > templates/README.md
     mv templates/README.md "$appName"/

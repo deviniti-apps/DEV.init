@@ -46,10 +46,8 @@ class DashboardScreen extends StatelessWidget {
     switch (index) {
       case 0:
         context.go(DashboardHomeScreen.routeName);
-        break;
       case 1:
         context.go(DashboardProfileScreen.routeName);
-        break;
     }
   }
 }

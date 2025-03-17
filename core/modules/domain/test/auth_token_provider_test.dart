@@ -1,8 +1,8 @@
 import 'package:domain/auth_token_provider.dart';
 import 'package:domain/model/user.dart';
 import 'package:domain/store/single_value_store.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 class MockUserSingleValueStore extends Mock implements SingleValueStore<User> {}
 

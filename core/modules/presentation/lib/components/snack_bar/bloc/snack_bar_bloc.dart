@@ -18,11 +18,10 @@ class SnackBarBloc extends Bloc<SnackBarEvent, SnackBarState> {
     SnackBarEvent event,
     Emitter<SnackBarState> emit,
   ) async {
-    await event.map(
-      showMessageRequested: (value) async {
+    switch (event) {
+      case _SnackBarShowMessageRequested(snackBarMessage: final snackBarMessage):
         emit(const SnackBarState.initial());
-        emit(SnackBarState.showMessage(snackBarMessage: value.snackBarMessage));
-      },
-    );
+        emit(SnackBarState.showMessage(snackBarMessage: snackBarMessage));
+    }
   }
 }

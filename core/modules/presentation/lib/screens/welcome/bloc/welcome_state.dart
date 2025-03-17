@@ -1,7 +1,7 @@
 part of 'welcome_bloc.dart';
 
 @freezed
-class WelcomeState with _$WelcomeState {
+abstract class WelcomeState with _$WelcomeState {
   const factory WelcomeState({
     required StateType type,
     required WelcomeArgument argument,

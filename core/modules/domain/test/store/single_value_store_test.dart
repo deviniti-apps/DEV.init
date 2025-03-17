@@ -1,8 +1,8 @@
 import 'package:domain/store/adapter/storage_adapter.dart';
 import 'package:domain/store/single_value_store.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 import 'storable_model.dart';
 
@@ -51,7 +51,7 @@ void main() {
                 fromJson: StorableModel.fromJson,
               );
 
-              when(() => mockAdapter.write(key: key, value: any(named: 'value'))).thenThrow((_) async => Object());
+              when(() => mockAdapter.write(key: key, value: any(named: 'value'))).thenThrow((_) => Object());
 
               final result = await store.write(value: storableModel).run();
 
@@ -175,7 +175,7 @@ void main() {
                 fromJson: StorableModel.fromJson,
               );
 
-              when(() => mockAdapter.delete(key: key)).thenThrow((_) async => Object());
+              when(() => mockAdapter.delete(key: key)).thenThrow((_) => Object());
 
               final result = await store.delete().run();
 

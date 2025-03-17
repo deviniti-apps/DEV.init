@@ -1,7 +1,7 @@
 import 'package:domain/model/{{domainModelName.snakeCase()}}.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:remote/mapper/{{usecaseName.snakeCase()}}_response_to_domain_mapper.dart';
 import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_response_remote_model.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(

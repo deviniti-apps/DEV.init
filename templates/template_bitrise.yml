@@ -37,7 +37,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.24.5
+            - version: 3.29.1
     - script@1:
           inputs:
             - content: |-
@@ -117,7 +117,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.24.5
+            - version: 3.29.1
     - script@1:
           inputs:
             - content: |-
@@ -194,7 +194,7 @@ workflows:
           title: copy files
     - flutter-installer@0:
           inputs:
-            - version: 3.24.5
+            - version: 3.29.1
     - script@1:
           inputs:
             - content: |-
@@ -250,7 +250,7 @@ workflows:
       - git-clone@8: { }
       - flutter-installer@0:
           inputs:
-            - version: 3.24.5
+            - version: 3.29.1
       - script@1:
           inputs:
             - content: |-

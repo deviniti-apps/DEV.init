@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:remote/models/error/error_object.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(
@@ -21,7 +21,7 @@ void main() {
 
       test(
         'should create error object from json',
-        () async {
+        () {
           final result = ErrorObject.fromJson(jsonMap);
 
           expect(result, errorObject);
@@ -30,7 +30,7 @@ void main() {
 
       test(
         'should create json from error object',
-        () async {
+        () {
           final result = errorObject.toJson();
 
           expect(result, jsonMap);

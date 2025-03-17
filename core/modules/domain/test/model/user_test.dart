@@ -1,5 +1,5 @@
 import 'package:domain/model/user.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group(
@@ -12,7 +12,7 @@ void main() {
 
       test(
         'should create user model from Json',
-        () async {
+        () {
           final jsonMap = <String, dynamic>{
             'name': 'name',
             'email': 'email',

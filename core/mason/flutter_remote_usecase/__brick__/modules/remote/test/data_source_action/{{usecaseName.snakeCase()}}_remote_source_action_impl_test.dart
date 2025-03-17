@@ -9,7 +9,7 @@ import 'package:remote/mapper/mapper.dart';{{#acceptsParam}}
 import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_request_remote_model.dart';{{/acceptsParam}}{{#returnsDomainModel}}
 import 'package:remote/models/{{apiName.snakeCase()}}/{{usecaseName.snakeCase()}}_response_remote_model.dart';{{/returnsDomainModel}}
 import 'package:remote/other/error/error_converter.dart';
-import 'package:test/test.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 class Mock{{apiName.pascalCase()}}RestApi extends Mock implements {{apiName.pascalCase()}}RestApi {}
 

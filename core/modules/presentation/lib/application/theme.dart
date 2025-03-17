@@ -1,6 +1,4 @@
 // ignore_for_file: overridden_fields
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -249,7 +247,7 @@ class AppTheme {
         ),
       );
 
-  MaterialColor generateMaterialColor(Color color) => MaterialColor(color.value, {
+  MaterialColor generateMaterialColor(Color color) => MaterialColor(color.toARGB32(), {
         50: tintColor(color, 0.9),
         100: tintColor(color, 0.8),
         200: tintColor(color, 0.6),
@@ -262,27 +260,21 @@ class AppTheme {
         900: shadeColor(color, 0.4),
       });
 
-  int tintValue(int value, double factor) => max(
-        0,
-        min((value + ((255 - value) * factor)).round(), 255),
-      );
+  int tintValue(double value, double factor) => (255 * (value + ((1.0 - value) * factor))).round();
 
   Color tintColor(Color color, double factor) => Color.fromRGBO(
-        tintValue(color.red, factor),
-        tintValue(color.green, factor),
-        tintValue(color.blue, factor),
+        tintValue(color.r, factor),
+        tintValue(color.g, factor),
+        tintValue(color.b, factor),
         1,
       );
 
-  int shadeValue(int value, double factor) => max(
-        0,
-        min(value - (value * factor).round(), 255),
-      );
+  int shadeValue(double value, double factor) => (255 * (value - (value * factor))).round();
 
   Color shadeColor(Color color, double factor) => Color.fromRGBO(
-        shadeValue(color.red, factor),
-        shadeValue(color.green, factor),
-        shadeValue(color.blue, factor),
+        shadeValue(color.r, factor),
+        shadeValue(color.g, factor),
+        shadeValue(color.b, factor),
         1,
       );
 }

@@ -1,7 +1,7 @@
 import 'package:domain/store/adapter/storage_adapter.dart';
 import 'package:domain/store/multi_value_store.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 import 'storable_model.dart';
 

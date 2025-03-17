@@ -45,10 +45,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  Future<void> _onAuthCheckRequested(_OnAuthCheckRequested event, Emitter<AuthState> emit) async =>
+  Future<void> _onAuthCheckRequested(_OnAuthCheckRequested event, Emitter<AuthState> emit) =>
       _userProvider.restoreUser();
 
-  Future<void> _onSignedOut(_OnSignedOut event, Emitter<AuthState> emit) async => _userProvider.deleteUser();
+  Future<void> _onSignedOut(_OnSignedOut event, Emitter<AuthState> emit) => _userProvider.deleteUser();
 
   @override
   Future<void> close() async {

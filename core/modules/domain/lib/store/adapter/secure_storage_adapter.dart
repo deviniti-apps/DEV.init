@@ -12,7 +12,7 @@ class SecureStorageAdapter extends StorageAdapter {
   Future<void> delete({required String key}) => _flutterSecureStorage.delete(key: key);
 
   @override
-  Future<String?> read({required String key}) async => _flutterSecureStorage.read(key: key);
+  Future<String?> read({required String key}) => _flutterSecureStorage.read(key: key);
 
   @override
   Future<void> write({required String key, required String value}) =>

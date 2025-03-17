@@ -1,9 +1,9 @@
 import 'package:domain/model/user.dart';
 import 'package:domain/store/single_value_store.dart';
 import 'package:domain/usecase/update_local_user_usecase.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 class MockUserSingleValueStore extends Mock implements SingleValueStore<User> {}
 

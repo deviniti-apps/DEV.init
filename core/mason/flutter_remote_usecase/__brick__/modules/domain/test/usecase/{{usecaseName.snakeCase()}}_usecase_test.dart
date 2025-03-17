@@ -3,9 +3,9 @@ import 'package:domain/model/{{domainModelName.snakeCase()}}.dart';{{/returnsDom
 import 'package:domain/model/{{usecaseName.snakeCase()}}_request.dart';{{/acceptsParam}}
 import 'package:domain/model/error_detail.dart';
 import 'package:domain/usecase/{{usecaseName.snakeCase()}}_usecase.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 class Mock{{usecaseName.pascalCase()}}RemoteSourceAction extends Mock implements {{usecaseName.pascalCase()}}RemoteSourceAction {}
 
