@@ -36,6 +36,12 @@ def create_configurations(config_name, symbol_name, project, base_config_name, b
     added_configuration = project.add_build_configuration(config_name, symbol_name)
     project_conf = project.native_targets[0].add_build_configuration(config_name, symbol_name.to_s)
 
+    test_target = project.native_targets.find { |target| target.name == 'RunnerTests' }
+    if test_target
+        test_conf = test_target.add_build_configuration(config_name, symbol_name.to_s)
+        test_conf.build_settings['SWIFT_VERSION'] = '5.0'
+    end
+
     found = project.native_targets[0].build_configurations.detect {|element| element.name.downcase == symbol_name.to_s}
 
     puts found

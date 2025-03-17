@@ -4,7 +4,7 @@ part 'error_object.freezed.dart';
 part 'error_object.g.dart';
 
 @freezed
-class ErrorObject with _$ErrorObject {
+abstract class ErrorObject with _$ErrorObject {
   const factory ErrorObject({
     DateTime? timestamp,
     String? error,

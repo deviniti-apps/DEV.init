@@ -1,4 +1,5 @@
 import 'package:domain/data_source_action/get_user_remote_source_action.dart';
+import 'package:domain/model/error_detail.dart';
 import 'package:domain/model/user.dart';
 import 'package:domain/usecase/usecase.dart';
 import 'package:fpdart/fpdart.dart';
@@ -15,15 +16,12 @@ class GetUserUsecase implements UseCase<GetUserFailure, User> {
   @override
   TaskEither<GetUserFailure, User> execute() {
     return _getUserRemoteSourceAction.execute().bimap(
-          (errorDetail) => errorDetail.map(
-            backend: (backendError) {
-              switch (backendError.errorCode) {
-                default:
-                  return GetUserFailure.fatal;
-              }
-            },
-            fatal: (fatalError) => GetUserFailure.fatal,
-          ),
+          (errorDetail) => switch (errorDetail) {
+            ErrorDetailBackend(:final errorCode) => switch (errorCode) {
+                _ => GetUserFailure.fatal,
+              },
+            _ => GetUserFailure.fatal,
+          },
           (r) => r,
         );
   }

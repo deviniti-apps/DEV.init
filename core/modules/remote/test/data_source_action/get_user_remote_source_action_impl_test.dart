@@ -1,12 +1,14 @@
+// ignore_for_file: avoid_implementing_value_types
+
 import 'package:domain/model/error_detail.dart';
 import 'package:domain/model/user.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:remote/api/user_rest_api.dart';
 import 'package:remote/data_source_action/get_user_remote_source_action_impl.dart';
 import 'package:remote/mapper/mapper.dart';
 import 'package:remote/models/user/user_remote_model.dart';
 import 'package:remote/other/error/error_converter.dart';
-import 'package:test/test.dart';
 
 class MockUserRestApi extends Mock implements UserRestApi {}
 

@@ -21,11 +21,10 @@ scripts:
   generate_code:
     run: |
       melos exec -- \
-        "fvm flutter packages pub run build_runner clean && fvm flutter packages pub run build_runner build --delete-conflicting-outputs"
+        "fvm dart run build_runner clean && fvm dart run build_runner build --delete-conflicting-outputs"
     description: Generate all @freezed @immutable and @json_annotation code by running build_runner in selected (or all) packages
     packageFilters:
-      dependsOn:
-        - "build_runner"
+      dependsOn: "build_runner"
       scope:
         - presentation
         - domain
@@ -37,12 +36,12 @@ scripts:
         "fvm flutter gen-l10n --arb-dir=assets/l10n --template-arb-file=translations_en.arb --output-localization-file=translations.dart --output-class=Translations --output-dir=lib/l10n --no-synthetic-package"
     description: Generate Translations.dart from .arb files
     packageFilters:
-      dirExists:
-        - "assets/"
+      scope: presentation
+      dirExists: "assets/"
 
   get_dependencies:
     run: |
-      melos exec -- "fvm flutter pub get"
+      fvm flutter pub get
     description: Run pub get in all packages
 
   clean:
@@ -53,9 +52,10 @@ scripts:
 
   test_coverage:
     description: Run tests and setup coverage in a specific package.
-    run: melos exec -- bash ../../flutter_generate_coverage_imports.sh MELOS_PACKAGE_NAME && 
-         melos exec -- bash ../../flutter_test_generate_coverage.sh MELOS_PACKAGE_NAME &&
-         melos exec -- rm -rf ./test/real_coverage_test.dart
+    run:
+      melos exec -- bash ../../flutter_generate_coverage_imports.sh MELOS_PACKAGE_NAME &&
+      melos exec -- bash ../../flutter_test_generate_coverage.sh MELOS_PACKAGE_NAME &&
+      melos exec -- rm -rf ./test/real_coverage_test.dart
     packageFilters:
       dirExists:
         - "test/"

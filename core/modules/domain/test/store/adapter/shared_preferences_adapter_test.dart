@@ -1,7 +1,7 @@
 import 'package:domain/store/adapter/shared_preferences_adapter.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:test/test.dart';
 
 class MockSharedPreferences extends Mock implements SharedPreferences {}
 

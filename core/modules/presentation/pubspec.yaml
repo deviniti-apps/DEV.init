@@ -4,47 +4,47 @@ publish_to: 'none'
 version: 0.0.1
 
 environment:
-  sdk: ">=3.5.4 <4.0.0"
-  flutter: "3.24.5"
+  sdk: ">=3.6.2 <4.0.0"
+  flutter: "3.29.1"
+
+resolution: workspace
 
 dependencies:
-  adaptive_theme: 3.6.0
-  bloc_concurrency: 0.2.5
-  collection: 1.18.0
+  adaptive_theme: 3.7.0
+  bloc_concurrency: 0.3.0
+  collection: 1.19.1
   cupertino_icons: 1.0.8
   domain:
     path: ../domain
-  envied: 1.0.0
+  envied: 1.1.1
   flutter:
     sdk: flutter
-  flutter_bloc: 8.1.6
-  flutter_hooks: 0.20.5
+  flutter_bloc: 9.1.0
+  flutter_hooks: 0.21.2
   flutter_localizations:
     sdk: flutter
-  flutter_svg: 2.0.16
+  flutter_svg: 2.0.17
   foundation:
     path: ../foundation
   fpdart: 1.1.1
-  freezed_annotation: 2.4.4
+  freezed_annotation: 3.0.0
   get_it: 8.0.3
-  go_router: 14.6.2
+  go_router: 14.8.1
   google_fonts: 6.2.1
-  intl: 0.19.0
+  intl: 0.20.2
   project_linter:
     path: ../project_linter
   remote:
     path: ../remote
 
 dev_dependencies:
-  analyzer: 6.7.0
-  bloc_test: 9.1.7
-  build_runner: 2.4.13
-  envied_generator: 1.0.0
+  analyzer: 7.3.0
+  bloc_test: 10.0.0
+  build_runner: 2.4.15
+  envied_generator: 1.1.1
   flutter_test:
     sdk: flutter
-  freezed: 2.5.3
-  lints: 5.0.0
-  mockingjay: 0.6.0
+  freezed: 3.0.3
   mocktail: 1.0.4
   platform: 3.1.6
 

@@ -87,7 +87,7 @@ class MultiValueStore<T extends Storable> {
     return true;
   }
 
-  /// Attempts to retrieve the entire collection of values from the store as a List<T>.
+  /// Attempts to retrieve the entire collection of values from the store as a ListList&lt;T&gt;.
   ///
   /// Returns an empty list when there is no stored data, currently stored data is corrupted or currently
   /// stored data no longer adheres to a structurally modified T.
@@ -128,7 +128,7 @@ class MultiValueStore<T extends Storable> {
   }
 
   /// Removes all values from the store.
-  Future<void> removeAll() async => _adapter.delete(key: _key);
+  Future<void> removeAll() => _adapter.delete(key: _key);
 
   Future<void> _write(Iterable<T> iterable) => _adapter.write(
         key: _key,

@@ -1,5 +1,3 @@
-library presentation;
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -14,21 +12,23 @@ import 'package:presentation/injector_container.dart' as di;
 import 'package:presentation/router/app_route_factory.dart';
 
 Future<void> runApplication() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await runZonedGuarded(
+    () async {
+      WidgetsFlutterBinding.ensureInitialized();
 
-  await di.init(
-    apiUrl: Env.apiUrl,
-  );
+      await di.init(
+        apiUrl: Env.apiUrl,
+      );
 
-  _runAppLogger();
+      _runAppLogger();
 
-  runZonedGuarded(
-    () => runApp(
-      Application(
-        appTheme: AppTheme(),
-        appRouteFactory: AppRouteFactory(),
-      ),
-    ),
+      runApp(
+        Application(
+          appTheme: AppTheme(),
+          appRouteFactory: AppRouteFactory(),
+        ),
+      );
+    },
     (error, stackTrace) => logSevere('Exception caught in presentation layer', error, stackTrace),
   );
 }

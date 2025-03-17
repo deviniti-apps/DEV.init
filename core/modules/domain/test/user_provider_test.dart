@@ -3,9 +3,9 @@ import 'package:domain/usecase/delete_local_user_usecase.dart';
 import 'package:domain/usecase/get_local_user_usecase.dart';
 import 'package:domain/usecase/update_local_user_usecase.dart';
 import 'package:domain/user_provider.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 class MockGetLocalUserUsecase extends Mock implements GetLocalUserUsecase {}
 

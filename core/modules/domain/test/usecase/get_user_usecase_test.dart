@@ -2,9 +2,9 @@ import 'package:domain/data_source_action/get_user_remote_source_action.dart';
 import 'package:domain/model/error_detail.dart';
 import 'package:domain/model/user.dart';
 import 'package:domain/usecase/get_user_usecase.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
 class MockGetUserRemoteSourceAction extends Mock implements GetUserRemoteSourceAction {}
 

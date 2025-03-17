@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:domain/model/error_detail.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:remote/other/error/error_converter.dart';
-import 'package:test/test.dart';
 
 void main() {
   test(
@@ -116,7 +116,7 @@ void main() {
     'Given DioError type error and stack trace then function handleRemoteError returns ErrorDetail.fatal',
     () {
       const converter = ErrorConverter();
-      final dioError = DioError(requestOptions: RequestOptions(path: 'path'), type: DioErrorType.badResponse);
+      final dioError = DioException(requestOptions: RequestOptions(path: 'path'), type: DioExceptionType.badResponse);
       final stackTrace = StackTrace.fromString('stackTraceString');
 
       final result = converter.handleRemoteError(dioError, stackTrace);

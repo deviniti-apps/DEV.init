@@ -1,7 +1,7 @@
 part of 'dashboard_home_bloc.dart';
 
 @freezed
-class DashboardHomeState with _$DashboardHomeState {
+abstract class DashboardHomeState with _$DashboardHomeState {
   const factory DashboardHomeState({
     required StateType type,
     required DashboardHomeArgument argument,

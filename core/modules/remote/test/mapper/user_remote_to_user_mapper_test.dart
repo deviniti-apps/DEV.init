@@ -1,7 +1,7 @@
 import 'package:domain/model/user.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:remote/mapper/user_remote_to_user_mapper.dart';
 import 'package:remote/models/user/user_remote_model.dart';
-import 'package:test/test.dart';
 
 void main() {
   group(

@@ -17,7 +17,7 @@ extension Assets on BuildContext {
   SvgPicture svgImage(String name, {Color? color, Size? size}) => SvgPicture.asset(
         name,
         package: AppAssets.package,
-        color: color,
+        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
         width: size?.width,
         height: size?.height,
       );

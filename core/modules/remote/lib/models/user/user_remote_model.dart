@@ -4,7 +4,7 @@ part 'user_remote_model.freezed.dart';
 part 'user_remote_model.g.dart';
 
 @freezed
-class UserRemoteModel with _$UserRemoteModel {
+abstract class UserRemoteModel with _$UserRemoteModel {
   const factory UserRemoteModel({
     required int id,
     required String name,

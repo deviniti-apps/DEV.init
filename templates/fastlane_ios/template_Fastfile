@@ -178,6 +178,7 @@ platform :ios do
   desc "Deploy a new Production (production) version to the Firebase App Distribution"
   lane :deploy_fad_ios_production do
     firebase_app_distribution(
+      app: "", # TODO: update firebase app number
       ipa_path: "./_RAW_NAME_.ipa",
       groups: "beta-testers",
       release_notes: ""
